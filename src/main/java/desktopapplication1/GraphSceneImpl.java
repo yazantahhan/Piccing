@@ -64,11 +64,11 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         IconNodeWidget widget = new IconNodeWidget(this);
 
         if (arg.startsWith("1")) {  // if widget name start with 1 then use led widget
-            widget.setImage(ImageUtilities.loadImage("Led.gif"));
+            widget.setImage(ImageUtilities.loadImage("icons/Led.gif"));
         } else if (arg.startsWith("2")) {  // if widget name start with 2 then use Timer widget
-            widget.setImage(ImageUtilities.loadImage("Timer.gif"));
+            widget.setImage(ImageUtilities.loadImage("icons/Timer.gif"));
         } else {  // if widget name start with anything else then use blue widget
-            widget.setImage(ImageUtilities.loadImage("Button.gif"));
+            widget.setImage(ImageUtilities.loadImage("icons/Button.gif"));
         }
 
         // function that add edge between widgets

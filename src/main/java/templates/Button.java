@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package engine;
+package templates;
 
 /**
  *
  * @author Admin
  */
 public class Button {
-        public static String getButtonStartTemplate(String pin) {
-        String x = "if("+pin+"){\r\n";
+
+    public static String getButtonStartTemplate(String port, String pin) {
+        String x = "if(PORT" + port + "bits." + pin + "){\r\n";
         return x;
     }
 

@@ -1,0 +1,7 @@
+_main: CODE, 32600 0 74
+_DelayMs: CODE, 32576 0 24
+_ConvertADC: CODE, 32552 0 4
+__initialization: CODE, 32566 0 4
+_ReadADC: CODE, 32556 0 10
+_OpenADC: CODE, 32674 0 94
+Total: 210

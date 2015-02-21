@@ -33,7 +33,7 @@ public class DesktopApplication1View extends FrameView {
         initComponents();
         Properties prop = new Properties();
         // status bar initialization - message timeout, idle icon and busy animation, etc
-        InputStream testf = this.getClass().getResourceAsStream("/DesktopApplication1View.properties");
+        InputStream testf = this.getClass().getResourceAsStream("/properties/DesktopApplication1View.properties");
         try {
             prop.load(testf);
         } catch (IOException ex) {

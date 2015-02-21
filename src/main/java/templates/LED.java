@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package engine;
+package templates;
 
 /**
  *
@@ -11,13 +11,13 @@ package engine;
  */
 public class LED {
 
-    public static String getTurnOnTemplate(String pin) {
-        String x = pin + "=1;\r\n";
+    public static String getTurnOnTemplate(String port, String pin) {
+        String x = "PORT" + port + "bits." + pin + "=1;\r\n";
         return x;
     }
 
-    public static String getTurnOffTemplate() {
-        String x = "RB0=0;\r\n";
+    public static String getTurnOffTemplate(String port, String pin) {
+        String x = "PORT" + port + "bits." + pin + "=0;\r\n";
         return x;
     }
 }
