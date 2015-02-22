@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import templates.Adc;
+import templates.Lcd;
 
 /**
  *
@@ -23,7 +24,7 @@ import templates.Adc;
 public class Builder {
 
     static String PATH = "Projects\\test\\";
-    static int x = 1;
+    static int x = 100;
 
     public static void build() {
         PrintWriter writer = null;
@@ -42,13 +43,20 @@ public class Builder {
             Exceptions.printStackTrace(ex);
         }
         writer.print(MainTemplate.getStartMainTemplate());
+        writer.print(Lcd.getLcdClearTemplate());
         writer.print(Delay.getStartTemplate(x));
         writer.print(Adc.getConvertAdcTemplate());
         writer.print("if (ADCValue > 512){\r\n");
-        writer.print(LED.getTurnOnTemplate("B","RB0"));
+        writer.print(LED.getTurnOnTemplate("B", "RB0"));
         writer.print(Button.getButtonEndTemplate());
         writer.print("else\r\n");
-        writer.print(LED.getTurnOffTemplate("B","RB0"));
+        writer.print(LED.getTurnOffTemplate("B", "RB0"));
+        writer.print("Lcd_Clear();"
+                + "Lcd_Set_Cursor(1, 1);"
+                + "Lcd_Write_String(\"LCD Library for\");"
+                + "Lcd_Set_Cursor(2, 1);"
+                + "Lcd_Write_String(\"MPLAB XC8\");");
+        writer.print(Delay.getStartTemplate(x));
         writer.print(MainTemplate.getEndMainTemplate());
         writer.close();
         Runtime runTime = Runtime.getRuntime();

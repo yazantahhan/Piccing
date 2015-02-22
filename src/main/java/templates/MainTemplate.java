@@ -13,12 +13,13 @@ public class MainTemplate {
 
     public static String getStartMainTemplate() {
         StringBuilder x = new StringBuilder(
-                "#include <xc.h>\r\n #include \"../../Libraries/delay.h\"\r\n"
-                + "#include <plib/ADC.h>\r\n ");
+                "#include <xc.h>\r\n #include <plib/delays.h>\r\n"
+                + "#include <plib/adc.h>\r\n #include \"../../Libraries/lcd.h\"\r\n ");
         x.append(getConfigBits());
         x.append("int ADCValue=0;\r\n");
-        x.append("int main(){\r\nTRISA = 1;\r\n TRISB = 0;\r\nPORTBbits.RB0=0;\r\n");
+        x.append("int main(){\r\nTRISA = 1;\r\n TRISB = 0;\r\nTRISD = 0x00;\r\nPORTBbits.RB0=0;\r\n");
         x.append(Adc.getAdcInitTemplate());
+        x.append(Lcd.getLcdInitTemplate());
         x.append("while(1){\r\n");
         return x.toString();
     }
@@ -29,7 +30,8 @@ public class MainTemplate {
     }
 
     private static String getConfigBits() {
-        return "#pragma config PLLDIV = 1\r\n       "
+        return "#define _XTAL_FREQ 4000000\r\n"
+                + "#pragma config PLLDIV = 1\r\n       "
                 + "#pragma config CPUDIV = OSC1_PLL2\r\n"
                 + "#pragma config USBDIV = 1\r\n       "
                 + "#pragma config FOSC = EC_EC \r\n    "

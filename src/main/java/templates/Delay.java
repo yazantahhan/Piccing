@@ -11,7 +11,8 @@ package templates;
  */
 public class Delay {
 
-    public static String getStartTemplate(int i) {
-        return "DelayMs(" + i + ");\r\n";
+    public static String getStartTemplate(int delayMs) {
+        
+        return "Delay10KTCYx(" + delayMs/10 + ");\r\n";
     }
 }
