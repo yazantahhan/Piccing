@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class SceneMainMenu implements PopupMenuProvider, ActionListener {
 
@@ -88,7 +89,13 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
     public void addLed() {
         String hm = "1#LED" + (nodeCount++);
         Widget newNode = scene.addNode(hm);
-        Point point2 = new Point(100, 100);
+        Random r = new Random();
+        int Low = 100;
+        int High = 300;
+        int R1 = r.nextInt(High-Low) + Low;
+        int R2 = r.nextInt(High-Low) + Low;
+        
+        Point point2 = new Point(R1,R2);
         GraphSceneImpl.listOfCustomWidgets.add(
                 new CustomWidget(newNode, new model.LED(hm, null, null, "1", "1", true)));
         // animate new widget from left top conner to point where click
@@ -131,7 +138,12 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
     }
 
     public void addTimer() {
-        Point point3 = new Point(150, 150);
+         Random r = new Random();
+        int Low = 100;
+        int High = 300;
+        int R1 = r.nextInt(High-Low) + Low;
+        int R2 = r.nextInt(High-Low) + Low;
+        Point point3 = new Point(R1,R2);
         String hm = "2#Timer" + (nodeCount++);
         Widget newNode = scene.addNode(hm);
         GraphSceneImpl.listOfCustomWidgets.add(

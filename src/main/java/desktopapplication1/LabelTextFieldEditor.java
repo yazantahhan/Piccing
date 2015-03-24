@@ -9,7 +9,7 @@ import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.Widget;
 
 /**
- *
+ *test test
  * @author aaa
  */
 public class LabelTextFieldEditor implements TextFieldInplaceEditor {
