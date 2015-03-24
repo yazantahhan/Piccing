@@ -2,14 +2,12 @@
  * This class is for adding new widget to GraphScene.
  * Right click GraphScene to show add widget menu.
  */
-
 package desktopapplication1;
 
 /**
  *
  * @author aaa
  */
-import engine.Builder;
 import org.netbeans.api.visual.action.PopupMenuProvider;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.netbeans.api.visual.widget.Widget;
@@ -29,16 +27,15 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
     private static final String ADD_NEW_NODE_ACTION3 = "addNewNodeAction3";
     private static final String ADD_NEW_NODE_ACTION4 = "addNewNodeAction4";
     private static final String ADD_NEW_NODE_ACTION5 = "addNewNodeAction5";
-
-    private GraphScene scene;
-
+    private static GraphScene scene;
+    public static GraphScene currentScene;
     private JPopupMenu menu;
     private Point point;
-
     private static int nodeCount = 0; // number to name new widget
 
     public SceneMainMenu(GraphScene scene) {
         this.scene = scene; // get reference GraphScene from caller class
+        currentScene = scene;
         menu = new JPopupMenu("Scene Menu");    // create popup menu
         JMenuItem item;
         // create menuitem for red widget
@@ -47,10 +44,10 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         item.addActionListener(this);
         menu.add(item); // add menuitem to popup menu
         menu.addSeparator();    // add separator
-        
-        
+
+
         //  
-       
+
 
         // create menuitem for green widget
         item = new JMenuItem("Add Timer");
@@ -65,65 +62,81 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         item.addActionListener(this);
         menu.add(item);
         menu.addSeparator();
-        
+
         //
-        
-         item = new JMenuItem("Assign value for timer");
+
+        item = new JMenuItem("Assign value for timer");
         item.setActionCommand(ADD_NEW_NODE_ACTION4);
         item.addActionListener(this);
         menu.add(item);
-          menu.addSeparator();
-            // add separator
-          
-           item = new JMenuItem("Build");
+        menu.addSeparator();
+        // add separator
+
+        item = new JMenuItem("Build");
         item.setActionCommand(ADD_NEW_NODE_ACTION5);
         item.addActionListener(this);
         menu.add(item);
-          menu.addSeparator();  
+        menu.addSeparator();
 
     }
 
-    public JPopupMenu getPopupMenu(Widget widget, Point point){
+    public JPopupMenu getPopupMenu(Widget widget, Point point) {
         this.point = point;
         return menu;
     }
 
+    public void addLed() {
+        String hm = "1#LED" + (nodeCount++);
+        Widget newNode = scene.addNode(hm);
+        Point point2 = new Point(100, 100);
+        GraphSceneImpl.listOfCustomWidgets.add(
+                new CustomWidget(newNode, new model.LED(hm, null, null, "1", "1", true)));
+        // animate new widget from left top conner to point where click
+        scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
+        scene.validate();
+    }
+
     public void actionPerformed(ActionEvent e) {
-       
-        if(ADD_NEW_NODE_ACTION1.equals (e.getActionCommand ())) {
-            
+
+        if (ADD_NEW_NODE_ACTION1.equals(e.getActionCommand())) {
+
             // add new widget red type (widget name start with 1)
-            String hm = "1#Node"+(nodeCount++);
+            String hm = "1#Node" + (nodeCount++);
             Widget newNode = scene.addNode(hm);
             // animate new widget from left top conner to point where click
-            scene.getSceneAnimator().animatePreferredLocation(newNode,point);
+            scene.getSceneAnimator().animatePreferredLocation(newNode, point);
             scene.validate();
-        } else if(ADD_NEW_NODE_ACTION2.equals (e.getActionCommand ())) {
+        } else if (ADD_NEW_NODE_ACTION2.equals(e.getActionCommand())) {
             // add new widget green type (widget name start with 2)
-            String hm = "2#Node"+(nodeCount++);
+            String hm = "2#Node" + (nodeCount++);
             Widget newNode = scene.addNode(hm);
-            scene.getSceneAnimator().animatePreferredLocation(newNode,point);
+            scene.getSceneAnimator().animatePreferredLocation(newNode, point);
             scene.validate();
-        } else if(ADD_NEW_NODE_ACTION3.equals (e.getActionCommand ())) {
+        } else if (ADD_NEW_NODE_ACTION3.equals(e.getActionCommand())) {
             // add new widget blue type (widget name start with any letter or number)
-            String hm = "3#Node"+(nodeCount++);
+            String hm = "3#Node" + (nodeCount++);
             Widget newNode = scene.addNode(hm);
-            scene.getSceneAnimator().animatePreferredLocation(newNode,point);
+            scene.getSceneAnimator().animatePreferredLocation(newNode, point);
             scene.validate();
-        }
-        else if(ADD_NEW_NODE_ACTION4.equals(e.getActionCommand())){
+        } else if (ADD_NEW_NODE_ACTION4.equals(e.getActionCommand())) {
             double x;
-            String input=JOptionPane.showInputDialog("Please Enter The Time");
-            x=Double.parseDouble(input);
-            
-            
-        }
-         if(ADD_NEW_NODE_ACTION5.equals (e.getActionCommand ())) {
-             Builder.build(); 
-         }
-    }
-    
-   
-    
+            String input = JOptionPane.showInputDialog("Please Enter The Time");
+            x = Double.parseDouble(input);
 
+
+        }
+        if (ADD_NEW_NODE_ACTION5.equals(e.getActionCommand())) {
+            // hooon be3mal al Build 
+        }
+    }
+
+    public void addTimer() {
+        Point point3 = new Point(150, 150);
+        String hm = "2#Timer" + (nodeCount++);
+        Widget newNode = scene.addNode(hm);
+        GraphSceneImpl.listOfCustomWidgets.add(
+                new CustomWidget(newNode, new model.Button(hm, null, null, "1", "1", true)));
+        scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
+        scene.validate();
+    }
 }

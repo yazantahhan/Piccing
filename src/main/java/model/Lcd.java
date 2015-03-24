@@ -2,13 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package templates;
+package model;
 
 /**
  *
  * @author Admin
  */
 public class Lcd {
+
+    public static String getInclude() {
+        return "#include \"../../Libraries/lcd.h\"\r\n";
+    }
 
     public static String getLcdInitTemplate() {
         return "Lcd_Init();";

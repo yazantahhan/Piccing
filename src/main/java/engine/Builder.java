@@ -6,16 +6,13 @@
 package engine;
 
 import org.openide.util.Exceptions;
-import templates.LED;
-import templates.MainTemplate;
-import templates.Button;
-import templates.Delay;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import templates.Adc;
-import templates.Lcd;
+import java.util.ArrayList;
+import model.CodeStructure;
+import model.Component;
 
 /**
  *
@@ -26,9 +23,9 @@ public class Builder {
     static String PATH = "Projects\\test\\";
     static int x = 100;
 
-    public static void build() {
+    public static void build(ArrayList<Component> listOfComponents) {
         PrintWriter writer = null;
-        File file = new File("Projects\\test\\", "example.c");
+        File file = new File(PATH, "example.c");
         if (!file.exists()) {
             new File(PATH).mkdirs();
             try {
@@ -42,22 +39,35 @@ public class Builder {
         } catch (FileNotFoundException ex) {
             Exceptions.printStackTrace(ex);
         }
-        writer.print(MainTemplate.getStartMainTemplate());
-        writer.print(Lcd.getLcdClearTemplate());
-        writer.print(Delay.getStartTemplate(x));
-        writer.print(Adc.getConvertAdcTemplate());
-        writer.print("if (ADCValue > 512){\r\n");
-        writer.print(LED.getTurnOnTemplate("B", "RB0"));
-        writer.print(Button.getButtonEndTemplate());
-        writer.print("else\r\n");
-        writer.print(LED.getTurnOffTemplate("B", "RB0"));
-        writer.print("Lcd_Clear();"
-                + "Lcd_Set_Cursor(1, 1);"
-                + "Lcd_Write_String(\"LCD Library for\");"
-                + "Lcd_Set_Cursor(2, 1);"
-                + "Lcd_Write_String(\"MPLAB XC8\");");
-        writer.print(Delay.getStartTemplate(x));
-        writer.print(MainTemplate.getEndMainTemplate());
+
+        for (int i = 0; i < listOfComponents.size(); i++) {
+            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponentsCode());
+        }
+
+        writer.print(CodeStructure.includes);
+        writer.print(CodeStructure.defines);
+        writer.print(CodeStructure.configBits);
+        writer.print(CodeStructure.globalVars);
+        writer.print(CodeStructure.setup);
+        writer.print("}");
+        writer.print(CodeStructure.main);
+        writer.print(CodeStructure.localVars);
+        writer.print(CodeStructure.mainLoop);
+        writer.print("}");
+        writer.print("}");
+        writer.print("return 0;\r\n}");
+
+//        writer.print("if (ADCValue > 512){\r\n");
+//        writer.print(LED.getTurnOnTemplate("B", "RB0"));
+//        writer.print(Button.getButtonEndTemplate());
+//        writer.print("else\r\n");
+//        writer.print(LED.getTurnOffTemplate("B", "RB0"));
+//        writer.print("Lcd_Clear();"
+//                + "Lcd_Set_Cursor(1, 1);"
+//                + "Lcd_Write_String(\"LCD Library for\");"
+//                + "Lcd_Set_Cursor(2, 1);"
+//                + "Lcd_Write_String(\"MPLAB XC8\");");
+//        writer.print(Delay.getStartTemplate(x));
         writer.close();
         Runtime runTime = Runtime.getRuntime();
         try {

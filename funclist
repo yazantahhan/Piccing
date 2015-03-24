@@ -1,15 +1,4 @@
-_Lcd_Write_String: CODE, 2424 0 82
-_Lcd_Init: CODE, 2216 0 114
-__stringdata: SMALLCONST, 2049 0 26
-_Lcd_Write_Char: CODE, 2586 0 56
-_main: CODE, 2076 0 140
-_Lcd_Cmd: CODE, 2686 0 32
-_ConvertADC: CODE, 2782 0 4
-__initialization: CODE, 2740 0 4
-_ReadADC: CODE, 2772 0 10
-_Lcd_Set_Cursor: CODE, 2506 0 80
-_Lcd_Clear: CODE, 2758 0 14
-_Delay10KTCYx: CODE, 2718 0 22
-_OpenADC: CODE, 2330 0 94
-_Lcd_Port: CODE, 2642 0 44
-Total: 722
+_main: CODE, 1992 0 50
+__initialization: CODE, 2042 0 2
+_setup: CODE, 1976 0 16
+Total: 68

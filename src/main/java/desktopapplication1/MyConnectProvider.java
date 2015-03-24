@@ -5,6 +5,7 @@
 package desktopapplication1;
 
 import java.awt.Point;
+import java.util.Arrays;
 import org.netbeans.api.visual.action.ConnectProvider;
 import org.netbeans.api.visual.action.ConnectorState;
 import org.netbeans.api.visual.widget.Scene;
@@ -58,5 +59,6 @@ class MyConnectProvider implements ConnectProvider {
         graph.setEdgeTarget(edge, target);
         // adjust number for new coming edge
         graph.setEdgeCounter(graph.getEdgeCounter() + 1);
+        
     }
 }

@@ -4,10 +4,8 @@
 
 package desktopapplication1;
 
-import java.net.URISyntaxException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
-import org.openide.util.Exceptions;
 
 /**
  * The main class of the application.
@@ -18,11 +16,7 @@ public class DesktopApplication1 extends SingleFrameApplication {
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        try {
-            show(new DesktopApplication1View(this));
-        } catch (URISyntaxException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+        show(new DesktopApplication1View(this));
     }
 
     /**
