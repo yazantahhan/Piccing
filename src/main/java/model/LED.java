@@ -5,41 +5,12 @@ public class LED extends Component {
     private boolean willTurnOn = false;
     private String port = "";
     private String pin = "";
-    private String name = "";
-    private Component input = null;
-    private Component output = null;
 
     public LED(String name, Component input, Component output, String port, String pin, boolean willTurnOn) {
+        super(name, input, output);
         this.port = port;
         this.pin = pin;
         this.willTurnOn = willTurnOn;
-        this.name = name;
-        this.input = input;
-        this.output = output;
-    }
-
-    public Component getInput() {
-        return input;
-    }
-
-    public void setInput(Component input) {
-        this.input = input;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Component getOutput() {
-        return output;
-    }
-
-    public void setOutput(Component output) {
-        this.output = output;
     }
 
     public String getPin() {
@@ -68,6 +39,7 @@ public class LED extends Component {
 
     @Override
     public String getComponentsCode() {
+        CodeStructure.localVars.append("R").append(port).append(pin).append("=0;\r\n");
         if (willTurnOn) {
             return getTurnOnTemplate(port, pin);
         } else {

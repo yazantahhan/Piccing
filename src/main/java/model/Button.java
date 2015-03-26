@@ -5,25 +5,12 @@ public class Button extends Component {
     private boolean isActiveLow = false;
     private String port = "";
     private String pin = "";
-    private String name = "";
-    private Component input = null;
-    private Component output = null;
 
     public Button(String name, Component input, Component output, String port, String pin, boolean isActiveLow) {
+        super(name, input, output);
         this.isActiveLow = isActiveLow;
         this.port = port;
         this.pin = pin;
-        this.name = name;
-        this.input = input;
-        this.output = output;
-    }
-
-    public Component getInput() {
-        return input;
-    }
-
-    public void setInput(Component input) {
-        this.input = input;
     }
 
     public boolean isIsActiveLow() {
@@ -32,22 +19,6 @@ public class Button extends Component {
 
     public void setIsActiveLow(boolean isActiveLow) {
         this.isActiveLow = isActiveLow;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Component getOutput() {
-        return output;
-    }
-
-    public void setOutput(Component output) {
-        this.output = output;
     }
 
     public String getPin() {

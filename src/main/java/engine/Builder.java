@@ -5,6 +5,7 @@
  */
 package engine;
 
+import desktopapplication1.CustomWidget;
 import org.openide.util.Exceptions;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ public class Builder {
     static String PATH = "Projects\\test\\";
     static int x = 100;
 
-    public static void build(ArrayList<Component> listOfComponents) {
+    public static void build(ArrayList<CustomWidget> listOfComponents) {
         PrintWriter writer = null;
         File file = new File(PATH, "example.c");
         if (!file.exists()) {
@@ -41,7 +42,7 @@ public class Builder {
         }
 
         for (int i = 0; i < listOfComponents.size(); i++) {
-            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponentsCode());
+            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponent().getComponentsCode());
         }
 
         writer.print(CodeStructure.includes);

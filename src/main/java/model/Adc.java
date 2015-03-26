@@ -10,17 +10,12 @@ package model;
  */
 public class Adc extends Component {
 
-    private String name = "";
-    private Component input = null;
-    private Component output = null;
     private String pin = "";
     private int threshold;
     private String direction;
 
     public Adc(String name, Component input, Component output, String pin, int threshold, String direction) {
-        this.name = name;
-        this.input = input;
-        this.output = output;
+        super(name, input, output);
         this.pin = pin;
         this.direction = direction;
         this.threshold = threshold;
@@ -37,7 +32,7 @@ public class Adc extends Component {
 
     private static String getConvertAdcTemplate(String pin, int threshold, String direction) {
         StringBuilder code = new StringBuilder("__delay_us(25);\r\n"
-                +" ADCON0bits.GO = 1;\r\n"
+                + " ADCON0bits.GO = 1;\r\n"
                 + "while (ADCON" + pin + "bits.nDONE) continue;\r\n"
                 + "ADCValue = (ADRESH<<8) + ADRESL ;\r\n");
         if (direction.equals("more than")) {
@@ -65,30 +60,6 @@ public class Adc extends Component {
 
     public void setDirection(String direction) {
         this.direction = direction;
-    }
-
-    public Component getInput() {
-        return input;
-    }
-
-    public void setInput(Component input) {
-        this.input = input;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Component getOutput() {
-        return output;
-    }
-
-    public void setOutput(Component output) {
-        this.output = output;
     }
 
     public String getPin() {

@@ -1,59 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1128 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic16f877a.h
-[s S47 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :2 `uc 1 ]
-[n S47 . ADON . GO_nDONE CHS ADCS ]
-"1135
-[s S48 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S48 . . GO CHS0 CHS1 CHS2 ADCS0 ADCS1 ]
-"1144
-[s S49 :2 `uc 1 :1 `uc 1 ]
-[n S49 . . nDONE ]
-"1148
-[s S50 :2 `uc 1 :1 `uc 1 ]
-[n S50 . . GO_DONE ]
-"1127
-[u S46 `S47 1 `S48 1 `S49 1 `S50 1 ]
-[n S46 . . . . . ]
-"1153
-[v _ADCON0bits `VS46 ~T0 @X0 0 e@31 ]
-"2179
-[s S92 :4 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S92 . PCFG . ADCS2 ADFM ]
-"2185
-[s S93 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S93 . PCFG0 PCFG1 PCFG2 PCFG3 ]
-"2178
-[u S91 `S92 1 `S93 1 ]
-[n S91 . . . ]
-"2192
-[v _ADCON1bits `VS91 ~T0 @X0 0 e@159 ]
 [p mainexit ]
-"1286
+"1286 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic16f877a.h
 [v _TRISA `Vuc ~T0 @X0 0 e@133 ]
 "1335
 [v _TRISB `Vuc ~T0 @X0 0 e@134 ]
 "1457
 [v _TRISD `Vuc ~T0 @X0 0 e@136 ]
-"213
-[s S9 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S9 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"212
-[u S8 `S9 1 ]
-[n S8 . . ]
-"224
-[v _PORTBbits `VS8 ~T0 @X0 0 e@6 ]
-"2501
-[v _RA1 `Vb ~T0 @X0 0 e@41 ]
+"2513
+[v _RB1 `Vb ~T0 @X0 0 e@49 ]
+"2561
+[v _RD0 `Vb ~T0 @X0 0 e@64 ]
 [v F1089 `(v ~T0 @X0 1 tf1`ul ]
 "154 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic.h
 [v __delay `JF1089 ~T0 @X0 0 e ]
 [p i __delay ]
-"1116 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic16f877a.h
-[v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
-"2167
-[v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
-"2513
-[v _RB1 `Vb ~T0 @X0 0 e@49 ]
 [; ;htc.h: 21: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 24: extern void __builtin_software_breakpoint(void);
 [; ;pic16f877a.h: 47: extern volatile unsigned char INDF @ 0x000;
@@ -1067,128 +1027,81 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eeprom_routines.h: 43: extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 [; ;eeprom_routines.h: 44: extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 [; ;pic.h: 154: extern __nonreentrant void _delay(unsigned long);
-[; ;delays.h: 13: void Delay1TCYx(unsigned char);
-[; ;delays.h: 19: void Delay10TCYx(unsigned char);
-[; ;delays.h: 25: void Delay100TCYx(unsigned char);
-[; ;delays.h: 31: void Delay1KTCYx(unsigned char);
-[; ;delays.h: 37: void Delay10KTCYx(unsigned char);
-"4 Projects\test\example.c
+"3 Projects\test\example.c
 [p x FOSC=XT ]
-"5
+"4
 [p x WDTE=OFF ]
-"6
+"5
 [p x PWRTE=OFF ]
-"7
+"6
 [p x BOREN=OFF ]
-"8
+"7
 [p x LVP=ON ]
-"9
+"8
 [p x CPD=OFF ]
-"10
+"9
 [p x WRT=OFF ]
-"11
+"10
 [p x CP=OFF ]
-"12
-[v _ADCValue `i ~T0 @X0 1 e ]
-[i _ADCValue
--> 0 `i
-]
-[; ;example.c: 12: int ADCValue=0;
-"13
+"11
 [v _setup `(v ~T0 @X0 1 ef ]
 {
-[; ;example.c: 13: void setup() {
+[; ;example.c: 11: void setup() {
 [e :U _setup ]
 [f ]
-[; ;example.c: 14: ADCON0bits.ADCS = 0;
-"14
-[e = . . _ADCON0bits 0 4 -> -> 0 `i `uc ]
-[; ;example.c: 15: ADCON1bits.ADCS2 = 0;
-"15
-[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
-[; ;example.c: 16: ADCON1bits.ADFM = 1;
-"16
-[e = . . _ADCON1bits 0 3 -> -> 1 `i `uc ]
-[; ;example.c: 17: ADCON1bits.PCFG = 0;
-"17
-[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
-[; ;example.c: 18: ADCON0bits.ADON = 1;
-"18
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
-[; ;example.c: 19: ADCON0bits.CHS = 0;
-"19
-[e = . . _ADCON0bits 0 3 -> -> 0 `i `uc ]
-[; ;example.c: 20: }
-"20
+[; ;example.c: 12: } int main() {
+"12
 [e :UE 96 ]
 }
-"21
 [v _main `(i ~T0 @X0 1 ef ]
 {
-[; ;example.c: 21: int main() {
 [e :U _main ]
 [f ]
-[; ;example.c: 22: setup();
-"22
+[; ;example.c: 13: setup();
+"13
 [e ( _setup ..  ]
-[; ;example.c: 23: TRISA = 0xFF;
-"23
+[; ;example.c: 14: TRISA = 0xFF;
+"14
 [e = _TRISA -> -> 255 `i `uc ]
-[; ;example.c: 24: TRISB = 0x0;
-"24
+[; ;example.c: 15: TRISB = 0x0;
+"15
 [e = _TRISB -> -> 0 `i `uc ]
-[; ;example.c: 25: TRISD = 0x0;
-"25
-[e = _TRISD -> -> 0 `i `uc ]
-[; ;example.c: 26: PORTBbits.RB0=0;
-"26
-[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
-[; ;example.c: 27: while(1) {
-"27
+[; ;example.c: 16: TRISD = 0xFF;
+"16
+[e = _TRISD -> -> 255 `i `uc ]
+[; ;example.c: 17: RB1=0;
+"17
+[e = _RB1 -> -> 0 `i `b ]
+[; ;example.c: 18: while(1) {
+"18
 [e :U 99 ]
 {
-[; ;example.c: 28: if(!RA1) {
-"28
-[e $ ! ! _RA1 101  ]
+[; ;example.c: 19: if(!RD0) {
+"19
+[e $ ! ! _RD0 101  ]
 {
-[; ;example.c: 29: _delay((unsigned long)((25)*(4000000/4000000.0)));
-"29
-[e ( __delay (1 -> * -> -> 25 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;example.c: 30: ADCON0bits.GO = 1;
-"30
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;example.c: 31: while (ADCON0bits.nDONE) continue;
-"31
-[e $U 102  ]
-[e :U 103 ]
-[e $U 102  ]
-[e :U 102 ]
-[e $ != -> . . _ADCON0bits 2 1 `i -> -> -> 0 `i `Vuc `i 103  ]
-[e :U 104 ]
-[; ;example.c: 32: ADCValue = (ADRESH<<8) + ADRESL ;
-"32
-[e = _ADCValue + << -> _ADRESH `i -> 8 `i -> _ADRESL `i ]
-[; ;example.c: 33: if(ADCValue > 512) RB1=1;
-"33
-[e $ ! > _ADCValue -> 512 `i 105  ]
+[; ;example.c: 20: _delay((unsigned long)((500)*(4000000/4000.0)));
+"20
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;example.c: 21: RB1=1;
+"21
 [e = _RB1 -> -> 1 `i `b ]
-[e :U 105 ]
-"34
+"22
 }
 [e :U 101 ]
-"35
+"23
 }
 [e :U 98 ]
-"27
+"18
 [e $U 99  ]
 [e :U 100 ]
-[; ;example.c: 34: }
-[; ;example.c: 35: }
-[; ;example.c: 36: return 0;
-"36
+[; ;example.c: 22: }
+[; ;example.c: 23: }
+[; ;example.c: 24: return 0;
+"24
 [e ) -> 0 `i ]
 [e $UE 97  ]
-[; ;example.c: 37: }
-"37
+[; ;example.c: 25: }
+"25
 [e :UE 97 ]
 }

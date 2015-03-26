@@ -105,68 +105,16 @@
 [v ___ftdiv __ftdiv `(f  1 e 3 0 ]
 "11 C:\Users\Admin\Documents\Github\Piccing\Libraries\delay.c
 [v _DelayMs DelayMs `(v  1 e 0 0 ]
-"13 C:\Users\Admin\Documents\Github\Piccing\Projects\test\example.c
+"11 C:\Users\Admin\Documents\Github\Piccing\Projects\test\example.c
 [v _setup setup `(v  1 e 0 0 ]
-"21
+"12
 [v _main main `(i  1 e 2 0 ]
-[s S92 . 1 `uc 1 RB0 1 0 :1:0 
-`uc 1 RB1 1 0 :1:1 
-`uc 1 RB2 1 0 :1:2 
-`uc 1 RB3 1 0 :1:3 
-`uc 1 RB4 1 0 :1:4 
-`uc 1 RB5 1 0 :1:5 
-`uc 1 RB6 1 0 :1:6 
-`uc 1 RB7 1 0 :1:7 
-]
-"224 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic16f877a.h
-[u S101 . 1 `S92 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES101  1 e 1 @6 ]
-"1116
-[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
-[s S19 . 1 `uc 1 ADON 1 0 :1:0 
-`uc 1 . 1 0 :1:1 
-`uc 1 GO_nDONE 1 0 :1:2 
-`uc 1 CHS 1 0 :3:3 
-`uc 1 ADCS 1 0 :2:6 
-]
-"1153
-[s S25 . 1 `uc 1 . 1 0 :2:0 
-`uc 1 GO 1 0 :1:2 
-`uc 1 CHS0 1 0 :1:3 
-`uc 1 CHS1 1 0 :1:4 
-`uc 1 CHS2 1 0 :1:5 
-`uc 1 ADCS0 1 0 :1:6 
-`uc 1 ADCS1 1 0 :1:7 
-]
-[s S33 . 1 `uc 1 . 1 0 :2:0 
-`uc 1 nDONE 1 0 :1:2 
-]
-[s S36 . 1 `uc 1 . 1 0 :2:0 
-`uc 1 GO_DONE 1 0 :1:2 
-]
-[u S39 . 1 `S19 1 . 1 0 `S25 1 . 1 0 `S33 1 . 1 0 `S36 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES39  1 e 1 @31 ]
-"1286
+"1286 C:\Program Files (x86)\Microchip\xc8\v1.33\include\pic16f877a.h
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1335
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
 "1457
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
-"2167
-[v _ADRESL ADRESL `VEuc  1 e 1 @158 ]
-[s S65 . 1 `uc 1 PCFG 1 0 :4:0 
-`uc 1 . 1 0 :2:4 
-`uc 1 ADCS2 1 0 :1:6 
-`uc 1 ADFM 1 0 :1:7 
-]
-"2192
-[s S70 . 1 `uc 1 PCFG0 1 0 :1:0 
-`uc 1 PCFG1 1 0 :1:1 
-`uc 1 PCFG2 1 0 :1:2 
-`uc 1 PCFG3 1 0 :1:3 
-]
-[u S75 . 1 `S65 1 . 1 0 `S70 1 . 1 0 ]
-[v _ADCON1bits ADCON1bits `VES75  1 e 1 @159 ]
 "2231
 [v _EEDATA EEDATA `VEuc  1 e 1 @268 ]
 "2237
@@ -179,25 +127,23 @@
 [v _CARRY CARRY `VEb  1 e 0 @24 ]
 "2441
 [v _GIE GIE `VEb  1 e 0 @95 ]
-"2501
-[v _RA1 RA1 `VEb  1 e 0 @41 ]
 "2513
 [v _RB1 RB1 `VEb  1 e 0 @49 ]
 "2559
 [v _RD RD `VEb  1 e 0 @3168 ]
+"2561
+[v _RD0 RD0 `VEb  1 e 0 @64 ]
 "2759
 [v _WR WR `VEb  1 e 0 @3169 ]
 "2761
 [v _WREN WREN `VEb  1 e 0 @3170 ]
 "12 C:\Users\Admin\Documents\Github\Piccing\Projects\test\example.c
-[v _ADCValue ADCValue `i  1 e 2 0 ]
-"21
 [v _main main `(i  1 e 2 0 ]
 {
-"37
+"25
 } 0
-"13
+"11
 [v _setup setup `(v  1 e 0 0 ]
 {
-"20
+"12
 } 0

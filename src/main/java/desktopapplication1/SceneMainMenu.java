@@ -8,6 +8,7 @@ package desktopapplication1;
  *
  * @author aaa
  */
+import engine.Builder;
 import org.netbeans.api.visual.action.PopupMenuProvider;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.netbeans.api.visual.widget.Widget;
@@ -17,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import model.Delay;
 
 public class SceneMainMenu implements PopupMenuProvider, ActionListener {
 
@@ -45,10 +47,6 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         item.addActionListener(this);
         menu.add(item); // add menuitem to popup menu
         menu.addSeparator();    // add separator
-
-
-        //  
-
 
         // create menuitem for green widget
         item = new JMenuItem("Add Timer");
@@ -86,23 +84,6 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         return menu;
     }
 
-    public void addLed() {
-        String hm = "1#LED" + (nodeCount++);
-        Widget newNode = scene.addNode(hm);
-        Random r = new Random();
-        int Low = 100;
-        int High = 300;
-        int R1 = r.nextInt(High-Low) + Low;
-        int R2 = r.nextInt(High-Low) + Low;
-        
-        Point point2 = new Point(R1,R2);
-        GraphSceneImpl.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.LED(hm, null, null, "1", "1", true)));
-        // animate new widget from left top conner to point where click
-        scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
-        scene.validate();
-    }
-
     public void actionPerformed(ActionEvent e) {
 
         if (ADD_NEW_NODE_ACTION1.equals(e.getActionCommand())) {
@@ -134,20 +115,53 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         }
         if (ADD_NEW_NODE_ACTION5.equals(e.getActionCommand())) {
             // hooon be3mal al Build 
+            Builder.build(GraphSceneImpl.listOfCustomWidgets);
         }
     }
 
-    public void addTimer() {
-         Random r = new Random();
+    public void addLed() {
+        String hm = "1#LED" + (nodeCount++);
+        Widget newNode = scene.addNode(hm);
+        Random r = new Random();
         int Low = 100;
         int High = 300;
-        int R1 = r.nextInt(High-Low) + Low;
-        int R2 = r.nextInt(High-Low) + Low;
-        Point point3 = new Point(R1,R2);
+        int R1 = r.nextInt(High - Low) + Low;
+        int R2 = r.nextInt(High - Low) + Low;
+
+        Point point2 = new Point(R1, R2);
+        GraphSceneImpl.listOfCustomWidgets.add(
+                new CustomWidget(newNode, new model.LED(hm, null, null, "B", "1", true)));
+        // animate new widget from left top conner to point where click
+        scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
+        scene.validate();
+    }
+
+    public void addTimer() {
+        Random r = new Random();
+        int Low = 100;
+        int High = 300;
+        int R1 = r.nextInt(High - Low) + Low;
+        int R2 = r.nextInt(High - Low) + Low;
+        Point point3 = new Point(R1, R2);
         String hm = "2#Timer" + (nodeCount++);
         Widget newNode = scene.addNode(hm);
         GraphSceneImpl.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Button(hm, null, null, "1", "1", true)));
+                new CustomWidget(newNode, new Delay(hm, null, null, 500)));
+        scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
+        scene.validate();
+    }
+
+    public void addButton() {
+        Random r = new Random();
+        int Low = 100;
+        int High = 300;
+        int R1 = r.nextInt(High - Low) + Low;
+        int R2 = r.nextInt(High - Low) + Low;
+        Point point3 = new Point(R1, R2);
+        String hm = "3#Button" + (nodeCount++);
+        Widget newNode = scene.addNode(hm);
+        GraphSceneImpl.listOfCustomWidgets.add(
+                new CustomWidget(newNode, new model.Button(hm, null, null, "D", "0", true)));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
         scene.validate();
     }

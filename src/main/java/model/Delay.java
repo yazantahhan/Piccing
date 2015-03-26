@@ -9,10 +9,17 @@ package model;
  *
  * @author Admin
  */
-public class Delay {
+public class Delay extends Component{
+    
+    private int delayMs;
 
-    public static String getStartTemplate(int delayMs) {
-        
-        return "Delay10KTCYx(" + delayMs/10 + ");\r\n";
+    public Delay(String name, Component input, Component output, int delayMs) {
+        super(name, input, output);
+        this.delayMs = delayMs;
+    }
+    
+    @Override
+    public String getComponentsCode() {
+        return "__delay_ms(" + delayMs + ");\r\n";
     }
 }

@@ -6,6 +6,12 @@ public abstract class Component {
     private Component input = null;
     private Component output = null;
 
+    public Component(String name, Component input, Component output) {
+        this.name = name;
+        this.input = input;
+        this.output = output;
+    }
+
     public abstract String getComponentsCode();
 
     public Component getInput() {
@@ -31,6 +37,4 @@ public abstract class Component {
     public void setOutput(Component output) {
         this.output = output;
     }
-    
-    
 }

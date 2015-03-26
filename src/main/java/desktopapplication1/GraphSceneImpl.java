@@ -7,26 +7,19 @@ package desktopapplication1;
  *
  * @author aaa
  */
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
-import model.Button;
 import model.Component;
-import model.Delay;
-import model.LED;
-import model.Timer;
 import org.netbeans.api.visual.action.ActionFactory;
 import org.netbeans.api.visual.action.WidgetAction;
-import org.netbeans.api.visual.anchor.Anchor;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.netbeans.api.visual.widget.ConnectionWidget;
-import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.openide.util.ImageUtilities;
 
 public class GraphSceneImpl extends GraphScene<String, String> {
@@ -52,20 +45,6 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         addChild(mainLayer);
         addChild(connectionLayer);
         addChild(interactionLayer);
-
-        // create 3 sample widgets at beginning
-//        Widget w1 = addNode("1.LED");
-//        w1.setPreferredLocation(new Point(10, 100));
-//        CustomWidget led = new CustomWidget(w1, new LED("LED1", null, null, "1", "1", true));
-//
-//        Widget w2 = addNode("2.Timer#1");
-//        w2.setPreferredLocation(new Point(100, 250));
-//        CustomWidget timer = new CustomWidget(w2, null);
-//
-//        Widget w3 = addNode("3.Button#1");
-//        w3.setPreferredLocation(new Point(200, 150));
-//        CustomWidget button = new CustomWidget(w3, new Button("Button1", null, null, "1", "1", true));
-
 
         // add zoom function to GraphScene (press Ctrl + scroll middle button mouse to zoom in-out)
         getActions().addAction(ActionFactory.createZoomAction());
@@ -118,14 +97,13 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         connection.getActions().addAction(createSelectAction());  // detect selection
         connection.getActions().addAction(reconnectAction);   // detect edge change
         connectionLayer.addChild(connection);  //add new edge to connectionLayer
-        Widget x = connectionLayer.getChildren().get(0);
+        Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
         String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
         String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
         Component sourceComponent = listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, listOfCustomWidgets)).getComponent();
         Component targetComponent = listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, listOfCustomWidgets)).getComponent();
         listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, listOfCustomWidgets)).getComponent().setOutput(targetComponent);
-        listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, listOfCustomWidgets)).getComponent().setOutput(sourceComponent);
-
+        listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, listOfCustomWidgets)).getComponent().setInput(sourceComponent);
         return connection;
     }
 
