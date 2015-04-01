@@ -9,6 +9,7 @@ package desktopapplication1;
  */
 import java.util.ArrayList;
 import model.Component;
+import model.Constants;
 import org.netbeans.api.visual.action.ActionFactory;
 import org.netbeans.api.visual.action.WidgetAction;
 import org.netbeans.api.visual.anchor.AnchorFactory;
@@ -19,12 +20,10 @@ import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.openide.util.ImageUtilities;
 
 public class GraphSceneImpl extends GraphScene<String, String> {
 
-    public static ArrayList<CustomWidget> listOfCustomWidgets;
     private LayerWidget mainLayer;
     private LayerWidget connectionLayer;
     private LayerWidget interactionLayer;
@@ -38,7 +37,6 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 
     public GraphSceneImpl() {
         // create layers and add all of its to GraphScene
-        listOfCustomWidgets = new ArrayList<CustomWidget>();
         mainLayer = new LayerWidget(this);  // layer for widgets
         connectionLayer = new LayerWidget(this);    // layer for edges
         interactionLayer = new LayerWidget(this);
@@ -71,6 +69,9 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 
         // add move function to widget
         widget.getActions().addAction(ActionFactory.createMoveAction());
+        
+        //double-click widget to edit text
+//        widget.getActions().addAction(editorAction);
 
         //double-click widget to edit text
         widget.getLabelWidget().getActions().addAction(editorAction);
@@ -100,10 +101,10 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
         String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
         String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
-        Component sourceComponent = listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, listOfCustomWidgets)).getComponent();
-        Component targetComponent = listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, listOfCustomWidgets)).getComponent();
-        listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, listOfCustomWidgets)).getComponent().setOutput(targetComponent);
-        listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, listOfCustomWidgets)).getComponent().setInput(sourceComponent);
+        Component sourceComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent();
+        Component targetComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent();
+        Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent().setOutput(targetComponent);
+        Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent().setInput(sourceComponent);
         return connection;
     }
 

@@ -51,6 +51,8 @@ public class Builder {
         writer.print(CodeStructure.globalVars);
         writer.print(CodeStructure.setup);
         writer.print("}");
+        writer.print(CodeStructure.isr);
+        writer.print("}");
         writer.print(CodeStructure.main);
         writer.print(CodeStructure.localVars);
         writer.print(CodeStructure.mainLoop);

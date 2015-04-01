@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "LED",
+        "pin": "B0",
+        "color" : "red"
+    },{
+        "name" : "LED",
+        "pin": "B1",
+        "color" : "white"
+    },{
+        "name" : "LED",
+        "pin": "B2",
+        "color" : "yellow"
+    },{
+        "name" : "LED",
+        "pin": "B3",
+        "color" : "blue"
+    },{
+        "name" : "BUTTON",
+        "pin": "B4",
+    }
+]

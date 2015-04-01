@@ -9,17 +9,27 @@ package model;
  *
  * @author Admin
  */
-public class Timer {
+public class Timer extends Component {
 
-    public static String initTimer0(String preScaler) {
-        return "OPTION_REG &=" + preScaler + ";\r\nT0IE = 1;\r\nGIE = 1;\r\n";
+    //256-((delay*freq)/(4*ps))
+    private int delay;
+
+    public Timer(String name, Component input, Component output, int delay) {
+        super(name, input, output);
+        this.delay = delay;
     }
 
-    public static String initInt() {
-        return "if(T0IF){\r\nT0IF = 0;\r\n";
+    public Timer(String name, Component input, Component output) {
+        super(name, input, output);
+        delay = 100;
     }
 
-    public static String getClosedBrace() {
-        return "}\r\n";
+    private void initTimer0(String preScaler) {
+        CodeStructure.setup.append("OPTION_REG &=").append(preScaler).append(";\r\nT0IE = 1;\r\nGIE = 1;\r\n");
+    }
+
+    @Override
+    public String getComponentsCode() {
+        return "__delay_ms(" + delay + ");\r\n";
     }
 }

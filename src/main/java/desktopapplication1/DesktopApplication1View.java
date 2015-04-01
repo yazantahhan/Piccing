@@ -18,6 +18,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import jsonModel.ComponentJson;
+import model.Component;
+import model.Constants;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.openide.util.Exceptions;
 
@@ -127,9 +130,9 @@ public class DesktopApplication1View extends FrameView {
         scrollPane = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ledBtn = new javax.swing.JButton();
+        timerBtn = new javax.swing.JButton();
+        buttonBtn = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -164,27 +167,27 @@ public class DesktopApplication1View extends FrameView {
         jPanel2.setName("jPanel2"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(DesktopApplication1View.class);
-        jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ledBtn.setIcon(resourceMap.getIcon("ledBtn.icon")); // NOI18N
+        ledBtn.setName("ledBtn"); // NOI18N
+        ledBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ledBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(resourceMap.getIcon("jButton2.icon")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        timerBtn.setIcon(resourceMap.getIcon("timerBtn.icon")); // NOI18N
+        timerBtn.setName("timerBtn"); // NOI18N
+        timerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                timerBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(resourceMap.getIcon("jButton3.icon")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonBtn.setIcon(resourceMap.getIcon("buttonBtn.icon")); // NOI18N
+        buttonBtn.setName("buttonBtn"); // NOI18N
+        buttonBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonBtnActionPerformed(evt);
             }
         });
 
@@ -196,24 +199,24 @@ public class DesktopApplication1View extends FrameView {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(25, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ledBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                        .addComponent(timerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                        .addComponent(buttonBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ledBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(timerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -299,23 +302,26 @@ public class DesktopApplication1View extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        sced.addLed();
-}//GEN-LAST:event_jButton1ActionPerformed
+    private void ledBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ledBtnActionPerformed
+        if (getAvailableComponent("LED") != null) {
+            sced.addLed();
+        }
+}//GEN-LAST:event_ledBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void timerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timerBtnActionPerformed
         sced.addTimer();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_timerBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        sced.addButton();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void buttonBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBtnActionPerformed
+        if (getAvailableComponent("BUTTON") != null) {
+            sced.addButton();
+        }
+    }//GEN-LAST:event_buttonBtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton buttonBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton ledBtn;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
@@ -323,6 +329,7 @@ public class DesktopApplication1View extends FrameView {
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JButton timerBtn;
     // End of variables declaration//GEN-END:variables
     private final Timer messageTimer;
     private final Timer busyIconTimer;
@@ -330,4 +337,17 @@ public class DesktopApplication1View extends FrameView {
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
     private JDialog aboutBox;
+
+    public ComponentJson getAvailableComponent(String component) {
+        ComponentJson foundedComponent = null;
+        String temp;
+        for (int i = 0; i < Constants.listOfAvailableComponentsStrings.size(); i++) {
+            temp = Constants.listOfAvailableComponentsStrings.get(i);
+            if (temp.contains(component)) {
+                foundedComponent = Constants.listOfJsonComponents.get(temp);
+                break;
+            }
+        }
+        return foundedComponent;
+    }
 }

@@ -78,15 +78,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="25" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="85" max="-2" attributes="1"/>
+                              <Component id="ledBtn" min="-2" pref="85" max="-2" attributes="1"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jButton2" pref="85" max="32767" attributes="1"/>
+                              <Component id="timerBtn" pref="85" max="32767" attributes="1"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jButton3" pref="85" max="32767" attributes="1"/>
+                              <Component id="buttonBtn" pref="85" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -97,42 +97,42 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="46" max="-2" attributes="1"/>
+                      <Component id="ledBtn" min="-2" pref="46" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="52" max="-2" attributes="1"/>
+                      <Component id="timerBtn" min="-2" pref="52" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="52" max="-2" attributes="1"/>
+                      <Component id="buttonBtn" min="-2" pref="52" max="-2" attributes="1"/>
                       <EmptySpace pref="95" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="ledBtn">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton1.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="ledBtn.icon"/>
+                <Property name="name" type="java.lang.String" value="ledBtn" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ledBtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="timerBtn">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton2.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="timerBtn.icon"/>
+                <Property name="name" type="java.lang.String" value="timerBtn" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timerBtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="buttonBtn">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton3.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="buttonBtn.icon"/>
+                <Property name="name" type="java.lang.String" value="buttonBtn" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

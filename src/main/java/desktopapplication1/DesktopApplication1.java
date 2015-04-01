@@ -1,9 +1,10 @@
 /*
  * DesktopApplication1.java
  */
-
 package desktopapplication1;
 
+import engine.HeaderParser;
+import java.net.URISyntaxException;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -15,7 +16,8 @@ public class DesktopApplication1 extends SingleFrameApplication {
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
+    @Override
+    protected void startup() {
         show(new DesktopApplication1View(this));
     }
 
@@ -24,7 +26,8 @@ public class DesktopApplication1 extends SingleFrameApplication {
      * Windows shown in our application come fully initialized from the GUI
      * builder, so this additional configuration is not needed.
      */
-    @Override protected void configureWindow(java.awt.Window root) {
+    @Override
+    protected void configureWindow(java.awt.Window root) {
     }
 
     /**
@@ -38,7 +41,8 @@ public class DesktopApplication1 extends SingleFrameApplication {
     /**
      * Main method launching the application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
+        HeaderParser.parseHeader("/header/header.json");
         launch(DesktopApplication1.class, args);
     }
 }
