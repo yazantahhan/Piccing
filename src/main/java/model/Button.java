@@ -41,4 +41,16 @@ public class Button extends Component {
         }
         return x;
     }
+
+    @Override
+    public void showInputPinsDialog() {
+    }
+
+    @Override
+    public void showOutputPinsDialog() {
+    }
+
+    @Override
+    public void showConfigDialog() {
+    }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.JOptionPane;
+
 public abstract class Component {
 
     private String name = "";
@@ -37,4 +39,10 @@ public abstract class Component {
     public void setOutput(Component output) {
         this.output = output;
     }
+
+    abstract public void showInputPinsDialog();
+
+    abstract public void showOutputPinsDialog();
+
+    abstract public void showConfigDialog();
 }

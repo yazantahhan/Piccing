@@ -15,10 +15,12 @@ import java.util.HashMap;
 import jsonModel.ButtonJson;
 import jsonModel.ComponentJson;
 import jsonModel.LedJson;
+import jsonModel.SensorJson;
 import model.Button;
 import model.Component;
 import model.Constants;
 import model.LED;
+import model.Sensor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,6 +54,14 @@ public class HeaderParser {
                     listOfPins = (String) jsonObj.get("pin");
                     listOfJsonComps.put("BUTTON", new ButtonJson("BUTTON", new ArrayList<String>(Arrays.asList(listOfPins.split(",")))));
                     Constants.listOfAvailableComponentsStrings.add(name);
+                } else if (name.contains("SENSOR")) {
+                    if (!listOfJsonComps.containsKey("SENSOR")) {
+                        listOfJsonComps.put("SENSOR", new SensorJson("SENSOR", null));
+                        Constants.listOfAvailableComponentsStrings.add(name);
+                    }
+                    String type = (String) jsonObj.get("type");
+                    ((SensorJson) listOfJsonComps.get("SENSOR")).getTypePinMapping().put(type, (String) jsonObj.get("pin"));
+                    ((SensorJson) listOfJsonComps.get("SENSOR")).getAvailabeTypes().add(type);
                 }
             }
         } catch (IOException ex) {

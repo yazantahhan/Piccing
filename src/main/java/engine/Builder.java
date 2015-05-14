@@ -53,6 +53,8 @@ public class Builder {
         writer.print("}");
         writer.print(CodeStructure.isr);
         writer.print("}");
+        writer.print("}");
+        writer.print("}");
         writer.print(CodeStructure.main);
         writer.print(CodeStructure.localVars);
         writer.print(CodeStructure.mainLoop);

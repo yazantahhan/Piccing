@@ -7,15 +7,23 @@ package desktopapplication1;
  *
  * @author aaa
  */
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JDialog;
 import model.Component;
 import model.Constants;
 import org.netbeans.api.visual.action.ActionFactory;
+import org.netbeans.api.visual.action.PopupMenuProvider;
 import org.netbeans.api.visual.action.WidgetAction;
+import org.netbeans.api.visual.anchor.Anchor;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
+import org.netbeans.api.visual.router.RouterFactory;
 import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
@@ -53,13 +61,36 @@ public class GraphSceneImpl extends GraphScene<String, String> {
     @Override
     protected Widget attachNodeWidget(String arg) {
         IconNodeWidget widget = new IconNodeWidget(this);
-        if (arg.startsWith("1")) {  // if widget name start with 1 then use led widget
+        if (arg.contains("LED")) {  // if widget name start with 1 then use led widget
             widget.setImage(ImageUtilities.loadImage("icons/Led.gif"));
-        } else if (arg.startsWith("2")) {  // if widget name start with 2 then use Timer widget
+        } else if (arg.contains("Timer")) {  // if widget name start with 2 then use Timer widget
             widget.setImage(ImageUtilities.loadImage("icons/Timer.gif"));
-        } else {  // if widget name start with anything else then use blue widget
+        } else if(arg.contains("Button")){  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/Button.gif"));
+        }else if(arg.contains("Delay")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/delay-32x32.png"));
+        }else if(arg.contains("Sensor")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/sensor-32x32.png"));
         }
+        else if(arg.contains("Motor")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/motor32.png"));
+        }
+        else if(arg.contains("ADC")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
+        }
+        else if(arg.contains("ADC")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
+        }
+        else if(arg.contains("Start")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/start45.png"));
+        }
+        else if(arg.contains("End")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/end45.png"));
+        }
+        else if(arg.contains("KeyBad")){  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/KeyBad32.png"));
+        }
+        
 
         // function that add edge between widgets
         // connectionaction must come before moveaction
@@ -69,10 +100,10 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 
         // add move function to widget
         widget.getActions().addAction(ActionFactory.createMoveAction());
-        
-        //double-click widget to edit text
-//        widget.getActions().addAction(editorAction);
 
+        //double-click widget to edit text
+//        widget.getActions().addAction(ActionFactory.crea);
+//        widget.getImageWidget().getActions().addAction() 
         //double-click widget to edit text
         widget.getLabelWidget().getActions().addAction(editorAction);
 
@@ -94,6 +125,7 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         ConnectionWidget connection = new ConnectionWidget(this);
         connection.setTargetAnchorShape(AnchorShape.TRIANGLE_FILLED); // assign edge type
         connection.setEndPointShape(PointShape.SQUARE_FILLED_BIG);
+//        System.out.println(Arrays.asList(connection.getControlPoints().toArray()));\
         connection.getActions().addAction(createObjectHoverAction()); // detect hover
         connection.getActions().addAction(createSelectAction());  // detect selection
         connection.getActions().addAction(reconnectAction);   // detect edge change
@@ -113,7 +145,9 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         //  check source widget of the edge
         Widget w = sourceNode != null ? findWidget(sourceNode) : null;
 //        listOfCustomWidgets.get(getWidgetIndex(w, listOfCustomWidgets)).getComponent().setOutput(w);
+//        ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
+//        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
 
     }
 
@@ -121,7 +155,18 @@ public class GraphSceneImpl extends GraphScene<String, String> {
     protected void attachEdgeTargetAnchor(String edge, String oldTargetNode, String targetNode) {
         //  check target of the edge
         Widget w = targetNode != null ? findWidget(targetNode) : null;
+//        ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
+//        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
+//        ((ConnectionWidget) findWidget(edge)).calculateRouting();
+//        List<Point> j = ((ConnectionWidget) findWidget(edge)).getControlPoints();
+//        j.get(j.size() - 1).y = j.get(j.size() - 1).y - 20;
+//        ((ConnectionWidget) findWidget(edge)).setControlPoints(j, true);
+//        System.out.println("");
+//        x.setRoutingPolicy(ConnectionWidget.RoutingPolicy.DISABLE_ROUTING);
+//        List<Point> z = x.getRouter().routeConnection(x);
+//        x.setControlPoints(Arrays.asList(new Point(100, 100),
+//                new Point(200, 200)), true);
     }
 
     /**

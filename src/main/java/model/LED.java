@@ -1,5 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import jsonModel.LedJson;
+
 public class LED extends Component {
 
     private boolean willTurnOn = false;
@@ -11,6 +22,7 @@ public class LED extends Component {
         this.pin = pin;
         this.color = color;
         this.willTurnOn = willTurnOn;
+        
     }
 
     public String getColor() {
@@ -55,5 +67,35 @@ public class LED extends Component {
     private String getTurnOffTemplate(String pin) {
         String x = "R" + pin + "=0;\r\n";
         return x;
+    }
+
+    @Override
+    public void showInputPinsDialog() {
+    }
+
+    @Override
+    public void showOutputPinsDialog() {
+    }
+
+    @Override
+    public void showConfigDialog() {
+        ArrayList<String> listOfColors = ((LedJson)(Constants.listOfJsonComponents.get("LED"))).getAvailabeColors();
+        HashMap<String, String> listofPins=((LedJson)(Constants.listOfJsonComponents.get("LED"))).getColorPinMapping();
+        ArrayList<String> ready = new ArrayList<String>();
+        for(int i=0;i<listofPins.size();i++){
+            String currentColor = listOfColors.get(i);
+            String x =  currentColor+ "  -----> "+ listofPins.get(currentColor);
+            ready.add(x);
+            
+        }
+           
+        JComboBox<String> combo = new JComboBox(ready.toArray());
+        
+        final JComponent[] inputs = new JComponent[]{
+            new JLabel("Color"),
+            combo            
+        };
+        JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
+        color = (String) combo.getSelectedItem();
     }
 }

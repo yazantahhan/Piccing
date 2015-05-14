@@ -5,9 +5,14 @@
 package desktopapplication1;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
+import model.Component;
+import model.Constants;
 import org.netbeans.api.visual.action.ConnectProvider;
 import org.netbeans.api.visual.action.ConnectorState;
+import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
@@ -58,7 +63,17 @@ class MyConnectProvider implements ConnectProvider {
         // link current edge to target widget
         graph.setEdgeTarget(edge, target);
         // adjust number for new coming edge
-        graph.setEdgeCounter(graph.getEdgeCounter() + 1);
-        
+        graph.setEdgeCounter(graph.getEdgeCounter()+1);
+        Constants.listOfCustomWidgets.get(getWidgetIndex(src, Constants.listOfCustomWidgets)).getComponent().showOutputPinsDialog();
+        Constants.listOfCustomWidgets.get(getWidgetIndex(trg, Constants.listOfCustomWidgets)).getComponent().showInputPinsDialog();
+    }
+    
+     public int getWidgetIndex(Widget widget, ArrayList<CustomWidget> customWidgets) {
+        for (int i = 0; i < customWidgets.size(); i++) {
+            if (customWidgets.get(i).getWidget().equals(widget)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

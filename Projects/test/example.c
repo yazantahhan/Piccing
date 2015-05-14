@@ -9,16 +9,19 @@
 #pragma config WRT = OFF
 #pragma config CP = OFF
 void setup() {
+} void interrupt isr(void) {
+}
+}
 } int main() {
     setup();
     TRISA = 0xFF;
     TRISB = 0x0;
     TRISD = 0xFF;
-    RB1=0;
+    RB0=0;
     while(1) {
-        if(!RD0) {
+        if(!RB4) {
+            RB0=1;
             __delay_ms(500);
-            RB1=1;
         }
     }
     return 0;

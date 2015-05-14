@@ -18,5 +18,13 @@
     },{
         "name" : "BUTTON",
         "pin": "B4",
+    },{
+        "name" : "SENSOR"
+        "type" : "TEMP"
+        "pin" : "B5"
+    },{
+        "name" : "SENSOR"
+        "type" : "LDR"
+        "pin" : "B6"
     }
 ]
