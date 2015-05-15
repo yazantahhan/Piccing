@@ -7,23 +7,14 @@ package desktopapplication1;
  *
  * @author aaa
  */
-import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JDialog;
-import model.Component;
 import model.Constants;
 import org.netbeans.api.visual.action.ActionFactory;
-import org.netbeans.api.visual.action.PopupMenuProvider;
 import org.netbeans.api.visual.action.WidgetAction;
-import org.netbeans.api.visual.anchor.Anchor;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
-import org.netbeans.api.visual.router.RouterFactory;
 import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
@@ -65,32 +56,26 @@ public class GraphSceneImpl extends GraphScene<String, String> {
             widget.setImage(ImageUtilities.loadImage("icons/Led.gif"));
         } else if (arg.contains("Timer")) {  // if widget name start with 2 then use Timer widget
             widget.setImage(ImageUtilities.loadImage("icons/Timer.gif"));
-        } else if(arg.contains("Button")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Button")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/Button.gif"));
-        }else if(arg.contains("Delay")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Delay")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/delay-32x32.png"));
-        }else if(arg.contains("Sensor")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Sensor")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/sensor-32x32.png"));
-        }
-        else if(arg.contains("Motor")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Motor")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/motor32.png"));
-        }
-        else if(arg.contains("ADC")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("ADC")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
-        }
-        else if(arg.contains("ADC")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("ADC")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
-        }
-        else if(arg.contains("Start")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Start")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/start45.png"));
-        }
-        else if(arg.contains("End")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("End")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/end45.png"));
-        }
-        else if(arg.contains("KeyBad")){  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("KeyBad")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/KeyBad32.png"));
         }
-        
+
 
         // function that add edge between widgets
         // connectionaction must come before moveaction
@@ -133,10 +118,12 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
         String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
         String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
-        Component sourceComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent();
-        Component targetComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent();
-        Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent().setOutput(targetComponent);
-        Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent().setInput(sourceComponent);
+//        Component sourceComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent();
+//        Component targetComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent();
+        CustomWidget sourceCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets));
+        CustomWidget targetCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets));
+        Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).addOutputToList(targetCustomWidget);
+        Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).addInputToList(sourceCustomWidget);
         return connection;
     }
 
@@ -185,7 +172,7 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 
     public int getWidgetIndex(String widget, ArrayList<CustomWidget> customWidgets) {
         for (int i = 0; i < customWidgets.size(); i++) {
-            if (customWidgets.get(i).getComponent().getName().compareTo(widget) == 0) {
+            if (((IconNodeWidget) customWidgets.get(i).getWidget()).getLabelWidget().getLabel().compareTo(widget) == 0) {
                 return i;
             }
         }

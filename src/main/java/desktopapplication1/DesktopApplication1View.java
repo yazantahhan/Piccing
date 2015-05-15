@@ -41,8 +41,8 @@ public class DesktopApplication1View extends FrameView {
 
     public DesktopApplication1View(SingleFrameApplication app) {
         super(app);
-       
-        
+
+
 
         initComponents();
         Properties prop = new Properties();
@@ -116,7 +116,7 @@ public class DesktopApplication1View extends FrameView {
         //Add the SatellitView to the scene:
         this.getFrame().add(scene.createSatelliteView(), BorderLayout.WEST);
         sced.addStart();
-       sced.addEnd();
+        sced.addEnd();
     }
 
     @Action
@@ -479,14 +479,14 @@ public class DesktopApplication1View extends FrameView {
     private void sensorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sensorBtnActionPerformed
         if (getAvailableComponent("SENSOR") != null) {
             ArrayList<String> ready = new ArrayList<String>();
-             HashMap<String, String> listofPins=((SensorJson)(Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping();
+            HashMap<String, String> listofPins = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping();
             ArrayList<String> listOfSensors = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getAvailabeTypes();
-            for(int i=0;i<listofPins.size();i++){
-            String currentType = listOfSensors.get(i);
-            String x =  currentType+ "  -----> "+ listofPins.get(currentType);
-            ready.add(x);
-            
-        }
+            for (int i = 0; i < listofPins.size(); i++) {
+                String currentType = listOfSensors.get(i);
+                String x = currentType + "  -----> " + listofPins.get(currentType);
+                ready.add(x);
+
+            }
             JComboBox<String> combo = new JComboBox(ready.toArray());
 
             final JComponent[] inputs = new JComponent[]{
@@ -495,7 +495,7 @@ public class DesktopApplication1View extends FrameView {
             };
             JOptionPane.showMessageDialog(null, inputs, "Select Type", JOptionPane.PLAIN_MESSAGE);
             String selctedType = (String) combo.getSelectedItem();
-            
+
             sced.addSensor(selctedType.split(" ")[0]);
         }
     }//GEN-LAST:event_sensorBtnActionPerformed
@@ -510,12 +510,12 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_motorBtnActionPerformed
 
     private void adcbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adcbuttonActionPerformed
-        sced.addAdc(); 
+        sced.addAdc();
         // TODO add your handling code here:
     }//GEN-LAST:event_adcbuttonActionPerformed
 
     private void sensorBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sensorBtnMouseEntered
-sensorBtn.setToolTipText("Sensor");        // TODO add your handling code here:
+        sensorBtn.setToolTipText("Sensor");        // TODO add your handling code here:
     }//GEN-LAST:event_sensorBtnMouseEntered
 
     private void ledBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ledBtnMouseEntered
@@ -523,11 +523,11 @@ sensorBtn.setToolTipText("Sensor");        // TODO add your handling code here:
     }//GEN-LAST:event_ledBtnMouseEntered
 
     private void buttonBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBtnMouseEntered
-buttonBtn.setToolTipText("Push Button");        // TODO add your handling code here:
+        buttonBtn.setToolTipText("Push Button");        // TODO add your handling code here:
     }//GEN-LAST:event_buttonBtnMouseEntered
 
     private void LCDBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LCDBtnMouseEntered
-    LCDBtn.setToolTipText("LCD");       // TODO add your handling code here:
+        LCDBtn.setToolTipText("LCD");       // TODO add your handling code here:
     }//GEN-LAST:event_LCDBtnMouseEntered
 
     private void timerBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timerBtnMouseEntered
@@ -543,17 +543,16 @@ buttonBtn.setToolTipText("Push Button");        // TODO add your handling code h
     }//GEN-LAST:event_motorBtnMouseEntered
 
     private void adcbuttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adcbuttonMouseEntered
-    adcbutton.setToolTipText("ADC");        // TODO add your handling code here:
+        adcbutton.setToolTipText("ADC");        // TODO add your handling code here:
     }//GEN-LAST:event_adcbuttonMouseEntered
 
     private void KeyBadbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KeyBadbtnMouseEntered
-    KeyBadbtn.setToolTipText("Key Bad");        // TODO add your handling code here:
+        KeyBadbtn.setToolTipText("Key Bad");        // TODO add your handling code here:
     }//GEN-LAST:event_KeyBadbtnMouseEntered
 
     private void KeyBadbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeyBadbtnActionPerformed
-  sced.addKeyBad();        // TODO add your handling code here:
+        sced.addKeyBad();        // TODO add your handling code here:
     }//GEN-LAST:event_KeyBadbtnActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton KeyBadbtn;
     private javax.swing.JButton LCDBtn;
@@ -583,8 +582,6 @@ buttonBtn.setToolTipText("Push Button");        // TODO add your handling code h
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
     private JDialog aboutBox;
-   
-    
 
     public ComponentJson getAvailableComponent(String component) {
         ComponentJson foundedComponent = null;
@@ -598,5 +595,4 @@ buttonBtn.setToolTipText("Push Button");        // TODO add your handling code h
         }
         return foundedComponent;
     }
-     
 }

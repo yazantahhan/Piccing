@@ -63,12 +63,16 @@ class MyConnectProvider implements ConnectProvider {
         // link current edge to target widget
         graph.setEdgeTarget(edge, target);
         // adjust number for new coming edge
-        graph.setEdgeCounter(graph.getEdgeCounter()+1);
-        Constants.listOfCustomWidgets.get(getWidgetIndex(src, Constants.listOfCustomWidgets)).getComponent().showOutputPinsDialog();
-        Constants.listOfCustomWidgets.get(getWidgetIndex(trg, Constants.listOfCustomWidgets)).getComponent().showInputPinsDialog();
+        graph.setEdgeCounter(graph.getEdgeCounter() + 1);
+        if (((IconNodeWidget) src).getLabelWidget().getLabel().compareTo("Start") != 0) {
+            Constants.listOfCustomWidgets.get(getWidgetIndex(src, Constants.listOfCustomWidgets)).getComponent().showOutputPinsDialog();
+        }
+        if (((IconNodeWidget) trg).getLabelWidget().getLabel().compareTo("End") != 0) {
+            Constants.listOfCustomWidgets.get(getWidgetIndex(trg, Constants.listOfCustomWidgets)).getComponent().showInputPinsDialog();
+        }
     }
-    
-     public int getWidgetIndex(Widget widget, ArrayList<CustomWidget> customWidgets) {
+
+    public int getWidgetIndex(Widget widget, ArrayList<CustomWidget> customWidgets) {
         for (int i = 0; i < customWidgets.size(); i++) {
             if (customWidgets.get(i).getWidget().equals(widget)) {
                 return i;

@@ -14,6 +14,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import model.CodeStructure;
 import model.Component;
+import model.Constants;
+import org.netbeans.api.visual.widget.general.IconNodeWidget;
 
 /**
  *
@@ -41,9 +43,23 @@ public class Builder {
             Exceptions.printStackTrace(ex);
         }
 
-        for (int i = 0; i < listOfComponents.size(); i++) {
-            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponent().getComponentsCode());
+        CustomWidget currentWidget = Constants.startWidget.getOutput().get(0);
+        ArrayList<CustomWidget> listOfOutputs;
+        while (currentWidget.getName().compareTo("End") != 0) {
+            CodeStructure.mainLoop.append(currentWidget.getComponent().getComponentsCode());
+            listOfOutputs = currentWidget.getOutput();
+            if (listOfOutputs.size() == 1) {
+                currentWidget = currentWidget.getOutput().get(0);
+            } else {
+                //TODO
+                System.out.println("More tahn one");
+                currentWidget = currentWidget.getOutput().get(0);
+            }
         }
+//        for (int i = 0; i < listOfComponents.size(); i++) {
+//            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponent().getComponentsCode());
+//        }
+
 
         writer.print(CodeStructure.includes);
         writer.print(CodeStructure.defines);
@@ -52,7 +68,6 @@ public class Builder {
         writer.print(CodeStructure.setup);
         writer.print("}");
         writer.print(CodeStructure.isr);
-        writer.print("}");
         writer.print("}");
         writer.print("}");
         writer.print(CodeStructure.main);
@@ -77,12 +92,12 @@ public class Builder {
         Runtime runTime = Runtime.getRuntime();
         try {
             Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\test\\example.c");
-            try {
-                p2.waitFor();
-                runTime.exec("cmd /c start Tools\\XC8compileFile.bat example");
-            } catch (InterruptedException e) {
-                System.out.println(e.toString());
-            }
+//            try {
+//                p2.waitFor();
+//                runTime.exec("cmd /c start Tools\\XC8compileFile.bat example");
+//            } catch (InterruptedException e) {
+//                System.out.println(e.toString());
+//            }
         } catch (IOException e) {
             System.out.println(e.toString());
         }

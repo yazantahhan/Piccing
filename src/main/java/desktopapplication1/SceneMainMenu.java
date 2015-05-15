@@ -40,9 +40,8 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
     private int LCDCount = 1; // number to name new widget
     private int TempCount = 1;
     private int MotorCount = 1;
-     private int AdcCount = 1;
-      private int KeyBadCount = 1;
-    
+    private int AdcCount = 1;
+    private int KeypadCount = 1;
 
     public SceneMainMenu(GraphScene scene) {
         this.scene = scene; // get reference GraphScene from caller class
@@ -86,7 +85,7 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String defaultPin = ((LedJson) Constants.listOfJsonComponents.get("LED")).getColorPinMapping().get(defaultColor);
         Point point2 = new Point(0, 0);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.LED(hm, null, null, defaultPin, defaultColor, true)));
+                new CustomWidget(newNode, new model.LED(hm, null, null, defaultPin, defaultColor, true), hm));
         // animate new widget from left top conner to point where click
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
@@ -103,7 +102,7 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String hm = "Timer" + TimerCount++;
         Widget newNode = scene.addNode(hm);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new Delay(hm, null, null, 500)));
+                new CustomWidget(newNode, new Delay(hm, null, null, 500), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
         scene.validate();
     }
@@ -120,7 +119,7 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         Widget newNode = scene.addNode(hm);
         String defaultPin = Constants.listOfJsonComponents.get("BUTTON").getPins().get(0);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true)));
+                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
@@ -138,21 +137,21 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         Widget newNode = scene.addNode(hm);
         String defaultPin = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping().get(selectedType);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Sensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS)));
+                new CustomWidget(newNode, new model.Sensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
     }
 
     public void addLcd() {
-       
+
         Point point2 = new Point(0, 0);
 //        String hm = "Push Button" + (nodeCount++);
         String hm = "LCD" + LCDCount++;
         Widget newNode = scene.addNode(hm);
         String defaultPin = Constants.listOfJsonComponents.get("BUTTON").getPins().get(0);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true)));
+                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
@@ -170,33 +169,33 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         Widget newNode = scene.addNode(hm);
         String defaultPin = Constants.listOfJsonComponents.get("BUTTON").getPins().get(0);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true)));
+                new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
     }
 
     public void addDelay() {
-       
+
         Point point2 = new Point(0, 0);
 //        String hm = "Push Button" + (nodeCount++);
         String hm = "Delay" + DelayCount++;
         Widget newNode = scene.addNode(hm);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Delay(hm, null, null, 1)));
+                new CustomWidget(newNode, new model.Delay(hm, null, null, 1), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
     }
 
     void addMotor() {
-        
+
         Point point2 = new Point(0, 0);
 //        String hm = "Push Button" + (nodeCount++);
         String hm = "Motor" + MotorCount++;
         Widget newNode = scene.addNode(hm);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Delay(hm, null, null, 1)));
+                new CustomWidget(newNode, new model.Delay(hm, null, null, 1), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
@@ -208,28 +207,30 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String hm = "ADC" + AdcCount++;
         Widget newNode = scene.addNode(hm);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Delay(hm, null, null, 1)));
+                new CustomWidget(newNode, new model.Delay(hm, null, null, 1), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
     }
-     void addStart(){
+
+    void addStart() {
         Point point3 = new Point(0, 250);
 //        String hm = "2#Timer" + (nodeCount++);
-        String ls= "Start";
+        String ls = "Start";
         Widget newNode = scene.addNode(ls);
-        Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new Delay(ls, null, null, 500)));
+        Constants.startWidget = new CustomWidget(newNode, null, ls);
+        Constants.listOfCustomWidgets.add(Constants.startWidget);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
         scene.validate();
     }
-     public void addEnd(){
-        Point point4 = new Point(1000, 250);
+
+    public void addEnd() {
+        Point point4 = new Point(800, 250);
 //        String hm = "2#Timer" + (nodeCount++);
         String hm = "End";
         Widget newNode = scene.addNode(hm);
-        Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new Delay(hm, null, null, 500)));
+        Constants.endWidget = new CustomWidget(newNode, null, hm);
+        Constants.listOfCustomWidgets.add(Constants.endWidget);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point4);
         scene.validate();
     }
@@ -237,13 +238,12 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
     void addKeyBad() {
         Point point2 = new Point(0, 0);
 //        String hm = "Push Button" + (nodeCount++);
-        String hm = "KeyBad" + KeyBadCount++;
+        String hm = "Keypad" + KeypadCount++;
         Widget newNode = scene.addNode(hm);
         Constants.listOfCustomWidgets.add(
-                new CustomWidget(newNode, new model.Delay(hm, null, null, 1)));
+                new CustomWidget(newNode, new model.Delay(hm, null, null, 1), hm));
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
         scene.validate();
         newNode.getActions();
     }
-    
 }

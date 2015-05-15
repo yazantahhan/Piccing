@@ -17,5 +17,7 @@ public class Constants {
 
     public static ArrayList<CustomWidget> listOfCustomWidgets = new ArrayList<CustomWidget>();
     public static HashMap<String, ComponentJson> listOfJsonComponents = new HashMap<String, ComponentJson>();
-    public static ArrayList<String> listOfAvailableComponentsStrings  = new ArrayList<String>();
+    public static ArrayList<String> listOfAvailableComponentsStrings = new ArrayList<String>();
+    public static CustomWidget startWidget;
+    public static CustomWidget endWidget;
 }
