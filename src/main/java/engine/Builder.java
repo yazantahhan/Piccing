@@ -5,7 +5,10 @@
  */
 package engine;
 
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import desktopapplication1.CustomWidget;
+import java.util.Collection;
+import org.netbeans.api.visual.graph.GraphScene;
 import org.openide.util.Exceptions;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import model.CodeStructure;
 import model.Component;
 import model.Constants;
+import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
 
 /**
@@ -26,7 +30,7 @@ public class Builder {
     static String PATH = "Projects\\test\\";
     static int x = 100;
 
-    public static void build(ArrayList<CustomWidget> listOfComponents) {
+    public static void build(ArrayList<CustomWidget> listOfComponents, GraphScene scene) {
         PrintWriter writer = null;
         File file = new File(PATH, "example.c");
         if (!file.exists()) {
@@ -43,19 +47,72 @@ public class Builder {
             Exceptions.printStackTrace(ex);
         }
 
-        CustomWidget currentWidget = Constants.startWidget.getOutput().get(0);
-        ArrayList<CustomWidget> listOfOutputs;
-        while (currentWidget.getName().compareTo("End") != 0) {
-            CodeStructure.mainLoop.append(currentWidget.getComponent().getComponentsCode());
-            listOfOutputs = currentWidget.getOutput();
-            if (listOfOutputs.size() == 1) {
-                currentWidget = currentWidget.getOutput().get(0);
+        ArrayList<Integer> edges = new ArrayList<Integer>();
+        CustomWidget currentCustomWidget = Constants.startWidget;
+        Widget tmpwidget;
+        Collection tmpEdges;
+        int edgeCount = -1;
+
+
+        while (true) {
+            if (currentCustomWidget.getName().compareTo("End") == 0 && edgeCount == -1) {
+                break;
+            } else if (currentCustomWidget.getName().compareTo("End") == 0) {
+                tmpwidget = (Widget) scene.getEdgeTarget(edges.get(edgeCount--));
+                currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
             } else {
-                //TODO
-                System.out.println("More tahn one");
-                currentWidget = currentWidget.getOutput().get(0);
+                tmpEdges = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
+                if (tmpEdges.size() > 1) {
+                    edges.addAll(scene.getEdges());
+                    edgeCount = tmpEdges.size() - 1;
+                    tmpwidget = (Widget) scene.getEdgeTarget(scene.findNodeEdges(currentCustomWidget.getName(), true, false).toArray()[edgeCount--]);
+                    currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                } else {
+                    Collection x = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
+                    Object[] y =  x.toArray();
+                    String z = (String) scene.getEdgeTarget(y[0]);
+                    tmpwidget = scene.findWidget(z); 
+//                    tmpwidget = (Widget) scene.getEdgeTarget(scene.findNodeEdges(currentCustomWidget.getName(), true, false).toArray()[0]);
+                    currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                }
             }
+
+            if (currentCustomWidget.getName().compareTo("End") != 0) {
+                CodeStructure.mainLoop.append(currentCustomWidget.getComponent().getComponentsCode());
+            }
+
+
         }
+
+//        ArrayList<Widget> multiConnWidgetStack = new ArrayList<Widget>();
+//        ArrayList<Integer> multiConnNumStack = new ArrayList<Integer>();
+//        Widget currentWidget = Constants.startWidget.getWidget();
+//        String currentWidgetStr = Constants.startWidget.getName();
+//        Collection collectionOfEdges;
+//        while (true) {
+//            currentWidget = Constants.startWidget.getWidget();
+//            currentWidgetStr = Constants.startWidget.getName();
+//            collectionOfEdges = scene.findNodeEdges(currentWidgetStr, true, false);
+//            if (currentWidgetStr.compareTo("End") == 0 && multiConnWidgetStack.isEmpty()) {
+//                break;
+//            } else if (collectionOfEdges.size() == 1) {
+//                CodeStructure.mainLoop.append(currentWidget.getComponent().getComponentsCode());
+//            } else {
+//                multiConnWidgetStack.add(currentWidget);
+//                multiConnNumStack.add(0);
+//            }
+//
+//    
+//
+//    
+//        else {
+//                if (currentWidgetStr.compareTo("End") == 0) {
+//            currentWidget = multiConnWidgetStack.get(multiConnWidgetStack.size() - 1);
+//        } else {
+//        }
+//    }
+
+//
 //        for (int i = 0; i < listOfComponents.size(); i++) {
 //            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponent().getComponentsCode());
 //        }

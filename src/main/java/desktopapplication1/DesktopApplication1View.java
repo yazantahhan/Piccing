@@ -551,7 +551,7 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_KeyBadbtnMouseEntered
 
     private void KeyBadbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeyBadbtnActionPerformed
-        sced.addKeyBad();        // TODO add your handling code here:
+        sced.addKeypad();        // TODO add your handling code here:
     }//GEN-LAST:event_KeyBadbtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton KeyBadbtn;

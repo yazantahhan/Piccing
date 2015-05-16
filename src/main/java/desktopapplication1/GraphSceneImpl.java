@@ -15,6 +15,7 @@ import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
+import org.netbeans.api.visual.router.RouterFactory;
 import org.netbeans.api.visual.widget.ConnectionWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
 import org.netbeans.api.visual.widget.Widget;
@@ -118,8 +119,6 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
         String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
         String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
-//        Component sourceComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).getComponent();
-//        Component targetComponent = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).getComponent();
         CustomWidget sourceCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets));
         CustomWidget targetCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets));
         Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).addOutputToList(targetCustomWidget);
@@ -134,7 +133,7 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 //        listOfCustomWidgets.get(getWidgetIndex(w, listOfCustomWidgets)).getComponent().setOutput(w);
 //        ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
-//        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
+        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
 
     }
 
@@ -144,7 +143,7 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         Widget w = targetNode != null ? findWidget(targetNode) : null;
 //        ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
-//        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
+        ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
 //        ((ConnectionWidget) findWidget(edge)).calculateRouting();
 //        List<Point> j = ((ConnectionWidget) findWidget(edge)).getControlPoints();
 //        j.get(j.size() - 1).y = j.get(j.size() - 1).y - 20;
