@@ -184,6 +184,6 @@ public class Builder {
         }
     }
    public void endOfTheProgram(){
-       JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staementS");
+       JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staement");
    }
 }
