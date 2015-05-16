@@ -29,11 +29,11 @@ import org.openide.util.Exceptions;
 
 public class HeaderParser {
 
-    public static void parseHeader(String fileName) throws URISyntaxException {
+    public static void parseHeader(File file) throws URISyntaxException {
         JSONParser parser = new JSONParser();
         HashMap<String, ComponentJson> listOfJsonComps = new HashMap<String, ComponentJson>();
         try {
-            File f = new File(HeaderParser.class.getResource(fileName).toURI());
+            File f = file;
             JSONArray headerJson = (JSONArray) parser.parse(new FileReader(f));
             String name;
             String pin;

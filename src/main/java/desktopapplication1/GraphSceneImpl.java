@@ -10,19 +10,25 @@ package desktopapplication1;
 import java.util.ArrayList;
 import model.Constants;
 import org.netbeans.api.visual.action.ActionFactory;
+import org.netbeans.api.visual.action.TwoStateHoverProvider;
 import org.netbeans.api.visual.action.WidgetAction;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
+import org.netbeans.api.visual.layout.LayoutFactory;
+import org.netbeans.api.visual.model.ObjectState;
 import org.netbeans.api.visual.router.RouterFactory;
 import org.netbeans.api.visual.widget.ConnectionWidget;
+import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
+import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
 import org.openide.util.ImageUtilities;
 
 public class GraphSceneImpl extends GraphScene<String, String> {
+    public static String resultedStr=" "; 
 
     private LayerWidget mainLayer;
     private LayerWidget connectionLayer;
@@ -107,36 +113,49 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 
     @Override
     protected Widget attachEdgeWidget(String arg0) {
+
+
         //  this function will be called if add new edge
         ConnectionWidget connection = new ConnectionWidget(this);
         connection.setTargetAnchorShape(AnchorShape.TRIANGLE_FILLED); // assign edge type
         connection.setEndPointShape(PointShape.SQUARE_FILLED_BIG);
-         //connection.setSourceAnchor (AnchorFactory.createDirectionalAnchor (sourceNode, AnchorFactory.DirectionalAnchorKind.HORIZONTAL));
-        connection.setRouter (RouterFactory.createOrthogonalSearchRouter (mainLayer));
+        //connection.setSourceAnchor (AnchorFactory.createDirectionalAnchor (sourceNode, AnchorFactory.DirectionalAnchorKind.HORIZONTAL));
+        connection.setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
         connection.getActions().addAction(createObjectHoverAction()); // detect hover
         connection.getActions().addAction(createSelectAction());  // detect selection
         connection.getActions().addAction(reconnectAction);   // detect edge change
-        connectionLayer.addChild(connection);  //add new edge to connectionLayer
-        Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
-        String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
-        String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
-        CustomWidget sourceCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets));
-        CustomWidget targetCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets));
-        Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).addOutputToList(targetCustomWidget);
-        Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).addInputToList(sourceCustomWidget);
+        connectionLayer.addChild(connection);
+       
+
+        //add new edge to connectionLayer
+
+
+//        Widget x = connectionLayer.getChildren().get(Integer.parseInt(arg0.replaceAll("\\D+", "")));
+//        String sourceWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getSourceAnchor().getRelatedWidget())).getLabelWidget().getLabel();
+//        String targetWidgetStr = ((IconNodeWidget) (((ConnectionWidget) x).getTargetAnchor().getRelatedWidget())).getLabelWidget().getLabel();
+//        CustomWidget sourceCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets));
+//        CustomWidget targetCustomWidget = Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets));
+//        Constants.listOfCustomWidgets.get(getWidgetIndex(sourceWidgetStr, Constants.listOfCustomWidgets)).addOutputToList(targetCustomWidget);
+//        Constants.listOfCustomWidgets.get(getWidgetIndex(targetWidgetStr, Constants.listOfCustomWidgets)).addInputToList(sourceCustomWidget);
         return connection;
     }
 
     @Override
     protected void attachEdgeSourceAnchor(String edge, String oldSourceNode, String sourceNode) {
+        
         //  check source widget of the edge
         Widget w = sourceNode != null ? findWidget(sourceNode) : null;
 //        listOfCustomWidgets.get(getWidgetIndex(w, listOfCustomWidgets)).getComponent().setOutput(w);
 //        ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
+        ConnectionWidget conwi = ((ConnectionWidget) findWidget(edge));
         ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
+        CustomWidget cw = Constants.hashOfCustomWidgets.get(w);
+        cw.setOutFlag(true);
+        
+        }
 
-    }
+    
 
     @Override
     protected void attachEdgeTargetAnchor(String edge, String oldTargetNode, String targetNode) {
@@ -145,6 +164,8 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 //        ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
+        CustomWidget cw = Constants.hashOfCustomWidgets.get(w);
+        cw.setInFlag(true);
 //        ((ConnectionWidget) findWidget(edge)).calculateRouting();
 //        List<Point> j = ((ConnectionWidget) findWidget(edge)).getControlPoints();
 //        j.get(j.size() - 1).y = j.get(j.size() - 1).y - 20;
@@ -154,6 +175,8 @@ public class GraphSceneImpl extends GraphScene<String, String> {
 //        List<Point> z = x.getRouter().routeConnection(x);
 //        x.setControlPoints(Arrays.asList(new Point(100, 100),
 //                new Point(200, 200)), true);
+       
+        
     }
 
     /**
@@ -178,4 +201,6 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         }
         return -1;
     }
+
+   
 }

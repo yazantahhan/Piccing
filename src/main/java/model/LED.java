@@ -96,6 +96,7 @@ public class LED extends Component {
             combo            
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
-        color = (String) combo.getSelectedItem();
+        color = ((String) combo.getSelectedItem()).split(" ")[0];
+        pin=((LedJson)Constants.listOfJsonComponents.get("LED")).getColorPinMapping().get(color);
     }
 }

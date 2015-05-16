@@ -231,6 +231,7 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String ls = "Start";
         Widget newNode = scene.addNode(ls);
         Constants.startWidget = new CustomWidget(newNode, null, ls);
+        Constants.startWidget.setInFlag(true);
         Constants.listOfCustomWidgets.add(Constants.startWidget);
         Constants.hashOfCustomWidgets.put(newNode, Constants.startWidget);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point3);
@@ -243,6 +244,7 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String hm = "End";
         Widget newNode = scene.addNode(hm);
         Constants.endWidget = new CustomWidget(newNode, null, hm);
+        Constants.endWidget.setOutFlag(true);
         Constants.listOfCustomWidgets.add(Constants.endWidget);
         Constants.hashOfCustomWidgets.put(newNode, Constants.endWidget);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point4);

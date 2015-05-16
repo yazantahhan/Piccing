@@ -4,7 +4,9 @@
 package desktopapplication1;
 
 import engine.HeaderParser;
+import java.io.File;
 import java.net.URISyntaxException;
+import javax.swing.JFileChooser;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -42,7 +44,13 @@ public class DesktopApplication1 extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) throws URISyntaxException {
-        HeaderParser.parseHeader("/header/header.json");
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Select the Header File");
+        chooser.showOpenDialog(null);
+        File file = chooser.getSelectedFile();
+
+
+        HeaderParser.parseHeader(file);
         launch(DesktopApplication1.class, args);
     }
 }

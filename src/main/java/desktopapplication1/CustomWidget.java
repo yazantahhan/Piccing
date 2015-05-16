@@ -19,6 +19,10 @@ public class CustomWidget {
     private ArrayList<CustomWidget> input = new ArrayList<CustomWidget>();
     private ArrayList<CustomWidget> output = new ArrayList<CustomWidget>();
     private String name;
+    private boolean inFlag=false;
+    private boolean outFlag=false;
+
+   
 
     public CustomWidget(Widget widget, Component component, String name) {
         this.widget = widget;
@@ -73,5 +77,21 @@ public class CustomWidget {
     public void setName(String name) {
         this.name = name;
     }
+     public boolean isInFlag() {
+        return inFlag;
+    }
+
+    public boolean isOutFlag() {
+        return outFlag;
+    }
+
+    public void setInFlag(boolean inFlag) {
+        this.inFlag = inFlag;
+    }
+
+    public void setOutFlag(boolean outFlag) {
+        this.outFlag = outFlag;
+    }
+    
     
 }

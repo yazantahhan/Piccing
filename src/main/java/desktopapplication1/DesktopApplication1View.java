@@ -505,11 +505,12 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_delayBtnActionPerformed
 
     private void motorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motorBtnActionPerformed
-        // TODO add your handling code here:
+        if (getAvailableComponent("MOTOR") != null)
         sced.addMotor();
     }//GEN-LAST:event_motorBtnActionPerformed
 
     private void adcbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adcbuttonActionPerformed
+        if (getAvailableComponent("ADC") != null)
         sced.addAdc();
         // TODO add your handling code here:
     }//GEN-LAST:event_adcbuttonActionPerformed
@@ -551,6 +552,7 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_KeyBadbtnMouseEntered
 
     private void KeyBadbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeyBadbtnActionPerformed
+        if (getAvailableComponent("KEYPAD") != null)
         sced.addKeypad();        // TODO add your handling code here:
     }//GEN-LAST:event_KeyBadbtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,15 @@ public abstract class Component {
     private String name = "";
     private Component input = null;
     private Component output = null;
+    private String resultedStr=" ";
+
+    public String getResultedStr() {
+        return resultedStr;
+    }
+
+    public void setResultedStr(String resultedStr) {
+        this.resultedStr = resultedStr;
+    }
 
     public Component(String name, Component input, Component output) {
         this.name = name;

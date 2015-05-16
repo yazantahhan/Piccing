@@ -59,6 +59,9 @@ public class NodeMenu implements PopupMenuProvider, ActionListener {
         // if click delete menu then remove widget and refresh GrapgScene
         if (e.getActionCommand().equals(DELETE_NODE_ACTION)) {
             scene.removeNodeWithEdges((String) scene.findObject(node));
+            CustomWidget cs=Constants.hashOfCustomWidgets.get(node);
+            Constants.listOfCustomWidgets.remove(cs);
+            Constants.hashOfCustomWidgets.remove(node);
             scene.validate();
         } else if (e.getActionCommand().equals(CONFIGURE_NODE_ACTION)) {
             Constants.listOfCustomWidgets.get(getWidgetIndex(node, Constants.listOfCustomWidgets)).getComponent().showConfigDialog();

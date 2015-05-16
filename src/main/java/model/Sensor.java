@@ -4,7 +4,9 @@
  */
 package model;
 
+import desktopapplication1.GraphSceneImpl;
 import java.util.ArrayList;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -89,6 +91,7 @@ public class Sensor extends Component {
         };
         JOptionPane.showMessageDialog(null, inputs, "Select output pin", JOptionPane.PLAIN_MESSAGE);
         String comparator  = (String) combo.getSelectedItem();
+     GraphSceneImpl.resultedStr=comparator;
         
     }
     
@@ -102,5 +105,6 @@ public class Sensor extends Component {
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
         value = valueTF.getText();
+       
     }
 }

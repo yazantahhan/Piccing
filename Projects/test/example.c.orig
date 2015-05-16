@@ -10,15 +10,14 @@
 #pragma config CP = OFF
 void setup(){
 }void interrupt isr(void){
-}}}int main(){
+}}int main(){
 setup();
 TRISA = 0xFF;
  TRISB = 0x0;
 TRISD = 0xFF;
-RB0=0;
 while(1){
 if(!RB4){
-RB0=1;
-__delay_ms(500);
+if(!RB4){
+if(!RB4){
 }}return 0;
 }
