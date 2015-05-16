@@ -111,7 +111,8 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         ConnectionWidget connection = new ConnectionWidget(this);
         connection.setTargetAnchorShape(AnchorShape.TRIANGLE_FILLED); // assign edge type
         connection.setEndPointShape(PointShape.SQUARE_FILLED_BIG);
-//        System.out.println(Arrays.asList(connection.getControlPoints().toArray()));\
+         //connection.setSourceAnchor (AnchorFactory.createDirectionalAnchor (sourceNode, AnchorFactory.DirectionalAnchorKind.HORIZONTAL));
+        connection.setRouter (RouterFactory.createOrthogonalSearchRouter (mainLayer));
         connection.getActions().addAction(createObjectHoverAction()); // detect hover
         connection.getActions().addAction(createSelectAction());  // detect selection
         connection.getActions().addAction(reconnectAction);   // detect edge change
