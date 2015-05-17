@@ -3,6 +3,7 @@
  */
 package desktopapplication1;
 
+
 import java.awt.BorderLayout;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.SingleFrameApplication;
@@ -24,6 +25,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JWindow;
 import jsonModel.ComponentJson;
 import jsonModel.LedJson;
 import jsonModel.SensorJson;
@@ -31,6 +33,7 @@ import model.Component;
 import model.Constants;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.openide.util.Exceptions;
+import org.openide.util.ImageUtilities;
 
 /**
  * The application's main frame.
@@ -468,6 +471,7 @@ public class DesktopApplication1View extends FrameView {
         if (getAvailableComponent("BUTTON") != null) {
             sced.addButton();
         }
+         
     }//GEN-LAST:event_buttonBtnActionPerformed
 
     private void LCDBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LCDBtnActionPerformed
