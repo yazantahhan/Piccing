@@ -65,22 +65,6 @@ public class Lcd extends Component {
 
     @Override
     public void showOutputPinsDialog() {
-//        JTextField firstName = new JTextField();
-//        JTextField lastName = new JTextField();
-//        JPasswordField password = new JPasswordField();
-//        final JComponent[] inputs = new JComponent[]{
-//            new JLabel("First"),
-//            firstName,
-//            new JLabel("Last"),
-//            lastName,
-//            new JLabel("Password"),
-//            password
-//        };
-//        JOptionPane.showMessageDialog(null, inputs, "My custom dialog", JOptionPane.PLAIN_MESSAGE);
-//        System.out.println("You entered "
-//                + firstName.getText() + ", "
-//                + lastName.getText() + ", "
-//                + password.getText());
     }
 
     @Override
@@ -93,7 +77,7 @@ public class Lcd extends Component {
             new JLabel("Enter the pre text"),
             startingStringTF,
             new JLabel("Enter the post text"),
-            endingStringTF            
+            endingStringTF
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
         startingString = startingStringTF.getText();

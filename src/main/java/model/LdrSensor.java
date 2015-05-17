@@ -20,7 +20,7 @@ import javax.swing.JTextField;
  *
  * @author Admin
  */
-public class Sensor extends Component {
+public class LdrSensor extends Component {
 
     public static final String GREATER = "greater";
     public static final String LESSTHAN = "less";
@@ -30,7 +30,7 @@ public class Sensor extends Component {
     private String comparetorSelected;
     private String pin = "";
 
-    public Sensor(String name, Component input, Component output, String pin, String value, String type, String comparetorSelected) {
+    public LdrSensor(String name, Component input, Component output, String pin, String value, String type, String comparetorSelected) {
         super(name, input, output);
         this.value = value;
         this.type = type;
@@ -102,7 +102,7 @@ public class Sensor extends Component {
         JTextField valueTF = new JTextField();
         valueTF.setText(value);
         final JComponent[] inputs = new JComponent[]{
-            new JLabel("Threshold"),
+            new JLabel("Threshold (From 1-10) "),
             valueTF
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);

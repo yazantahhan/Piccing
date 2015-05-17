@@ -139,7 +139,12 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String hm = selectedType + " Sensor" + SensorCount++;
         Widget newNode = scene.addNode(hm);
         String defaultPin = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping().get(selectedType);
-        CustomWidget cw = new CustomWidget(newNode, new model.Sensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm);
+        CustomWidget cw = null;
+        if (selectedType.compareTo("TEMP") == 0) {
+            cw = new CustomWidget(newNode, new model.TempSensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm);
+        } else if (selectedType.compareTo("LDR") == 0) {
+            cw = new CustomWidget(newNode, new model.LdrSensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm);
+        }
         Constants.listOfCustomWidgets.add(cw);
         Constants.hashOfCustomWidgets.put(newNode, cw);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);

@@ -5,6 +5,7 @@
  */
 package engine;
 
+import com.google.common.base.CharMatcher;
 import desktopapplication1.CustomWidget;
 import java.util.Collection;
 import org.netbeans.api.visual.graph.GraphScene;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.CodeStructure;
 import model.Constants;
+import model.TempSensor;
 import org.netbeans.api.visual.widget.Widget;
 
 /**
@@ -43,7 +45,7 @@ public class Builder {
             }
         }
         if (errFlag) {
-            JOptionPane.showMessageDialog(null, "Error there are non connected widgets  ");
+            JOptionPane.showMessageDialog(null, "Error there are non connected widgets");
 
         } else {
             PrintWriter writer = null;
@@ -67,7 +69,7 @@ public class Builder {
             Widget tmpwidget;
             Collection tmpEdges;
             int edgeCount = -1;
-
+            CustomWidget lastBranchedWidget = null;
 
             while (true) {
                 if (currentCustomWidget.getName().compareTo("End") == 0 && edgeCount == -1) {
@@ -76,6 +78,14 @@ public class Builder {
                     String tmpwidgetstr = (String) scene.getEdgeTarget(edges.get(edgeCount--));
                     tmpwidget = scene.findWidget(tmpwidgetstr);
                     currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                    System.out.println("--------");
+                    System.out.println(CodeStructure.mainLoop);
+                    if (CharMatcher.is('{').countIn(CodeStructure.mainLoop) > 1) {
+                        CodeStructure.mainLoop.append("}");
+                    }
+                    if (lastBranchedWidget.getName().contains("TEMP Sensor")) {
+                        CodeStructure.mainLoop.append(lastBranchedWidget.getComponent().getComponentsCode());
+                    }
                 } else {
                     tmpEdges = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
                     if (tmpEdges.size() > 1) {
@@ -83,7 +93,7 @@ public class Builder {
                         edgeCount = tmpEdges.size() - 1;
                         String z = (String) scene.getEdgeTarget(edges.get(edgeCount--));
                         tmpwidget = scene.findWidget(z);
-//                    tmpwidget = (Widget) scene.getEdgeTarget(scene.findNodeEdges(currentCustomWidget.getName(), true, false).toArray()[edgeCount--]);
+                        lastBranchedWidget = currentCustomWidget;
                         currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
                     } else {
 
@@ -142,6 +152,7 @@ public class Builder {
             writer.print(CodeStructure.globalVars);
             writer.print(CodeStructure.setup);
             writer.print("}");
+            writer.print(CodeStructure.functions);
             writer.print(CodeStructure.isr);
 //            writer.print("}");
             writer.print("}");
@@ -178,7 +189,8 @@ public class Builder {
             }
         }
     }
-   public void endOfTheProgram(){
-       JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staement");
-   }
+
+    public void endOfTheProgram() {
+        JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staement");
+    }
 }

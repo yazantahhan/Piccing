@@ -6,7 +6,7 @@ public class CodeStructure {
     public static StringBuilder includes = new StringBuilder("#include <xc.h>\r\n");
     public static StringBuilder globalVars = new StringBuilder();
     public static StringBuilder prototypes = new StringBuilder("void setup();\r\n");
-    public static StringBuilder localVars = new StringBuilder("TRISA = 0xFF;\r\n TRISB = 0x0;\r\nTRISD = 0xFF;\r\n");
+    public static StringBuilder localVars = new StringBuilder("");
     public static StringBuilder main = new StringBuilder("int main(){\r\nsetup();\r\n");
     public static StringBuilder mainLoop = new StringBuilder("while(1){\r\n");
     public static StringBuilder functions = new StringBuilder();

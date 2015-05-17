@@ -51,7 +51,7 @@ public class LED extends Component {
 
     @Override
     public String getComponentsCode() {
-        CodeStructure.localVars.append("R").append(pin).append("=0;\r\n");
+        CodeStructure.localVars.append(pin).append("=0;\r\n");
         if (willTurnOn) {
             return getTurnOnTemplate(pin);
         } else {
@@ -60,12 +60,12 @@ public class LED extends Component {
     }
 
     private String getTurnOnTemplate(String pin) {
-        String x = "R" + pin + "=1;\r\n";
+        String x = pin + "=1;\r\n";
         return x;
     }
 
     private String getTurnOffTemplate(String pin) {
-        String x = "R" + pin + "=0;\r\n";
+        String x = pin + "=0;\r\n";
         return x;
     }
 
