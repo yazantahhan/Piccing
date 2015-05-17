@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class Lcd extends Component {
 
     private ArrayList<String> pins;
-    private StringBuilder stringToWrite = null;
+    private String stringToWrite = null;
     private StringBuilder returnedString = new StringBuilder();
     private String startingString = "";
     private String endingString = "";
@@ -27,11 +27,11 @@ public class Lcd extends Component {
         this.pins = pins;
     }
 
-    public StringBuilder getStringToWrite() {
+    public String getStringToWrite() {
         return stringToWrite;
     }
 
-    public void setStringToWrite(StringBuilder stringToWrite) {
+    public void setStringToWrite(String stringToWrite) {
         this.stringToWrite = stringToWrite;
     }
 
@@ -47,15 +47,13 @@ public class Lcd extends Component {
     public String getComponentsCode() {
         CodeStructure.includes.append("#include \"../../Libraries/lcd.h\"\r\n");
         CodeStructure.setup.append("Lcd_Init();\r\n");
+        CodeStructure.globalVars.append("char *printedStr;\r\nchar *buff;\r\n");
+        CodeStructure.functions.append(getItoaFunc());
         returnedString.append("Lcd_Clear();");
-        if (stringToWrite.length() > 16) {
-            returnedString.append("Lcd_Set_Cursor(0,0);\r\n");
-            returnedString.append("Lcd_Write_String(\"").append(stringToWrite.substring(0, 16)).append("\");\r\n");
-            returnedString.append("Lcd_Set_Cursor(1,0);\r\n");
-            returnedString.append("Lcd_Write_String(\"").append(stringToWrite.substring(16)).append("\");\r\n");
-        } else {
-            returnedString.append("Lcd_Write_String(\"").append(stringToWrite).append("\");");
-        }
+        returnedString.append("Lcd_Set_Cursor(0,0);\r\n");
+        returnedString.append("strcpy(printedStr,itoa1(buff, tempC));\r\n");
+        returnedString.append("strcat(printedStr,\"").append(startingString).append("\");");
+        returnedString.append("Lcd_Write_String(printedStr);");
         return returnedString.toString();
     }
 
@@ -74,13 +72,41 @@ public class Lcd extends Component {
         startingStringTF.setText(startingString);
         endingStringTF.setText(endingString);
         final JComponent[] inputs = new JComponent[]{
-            new JLabel("Enter the pre text"),
-            startingStringTF,
             new JLabel("Enter the post text"),
-            endingStringTF
-        };
+            startingStringTF,};
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
         startingString = startingStringTF.getText();
-        endingString = endingStringTF.getText();
+    }
+
+    @Override
+    public String getPrintedValue() {
+        return "";
+    }
+
+    private String getItoaFunc() {
+        return "char *itoa1(char *buffer, int i) {"
+                + "   unsigned int n;"
+                + "   unsigned int negate = 0;"
+                + "   int c = 6;"
+                + "   if (i < 0) {"
+                + "       negate = 1;"
+                + "       n = -i;"
+                + "   } else if (i == 0) {"
+                + "       buffer[0] = '0';"
+                + "       buffer[1] = 0;"
+                + "       return buffer;"
+                + "   } else {"
+                + "       n = i;"
+                + "   }"
+                + "   buffer[c--] = 0;"
+                + "   do {"
+                + "       buffer[c--] = (n % 10) + '0';"
+                + "       n = n / 10;"
+                + "   } while (n);"
+                + "   if (negate) {"
+                + "       buffer[c--] = '-';"
+                + "   }"
+                + "   return &buffer[c + 1];"
+                + "}";
     }
 }

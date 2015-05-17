@@ -99,4 +99,9 @@ public class LED extends Component {
         color = ((String) combo.getSelectedItem()).split(" ")[0];
         pin=((LedJson)Constants.listOfJsonComponents.get("LED")).getColorPinMapping().get(color);
     }
+
+    @Override
+    public String getPrintedValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

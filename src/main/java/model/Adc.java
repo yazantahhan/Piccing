@@ -89,4 +89,10 @@ public class Adc extends Component {
     @Override
     public void showConfigDialog() {
     }
+
+    @Override
+    public String getPrintedValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

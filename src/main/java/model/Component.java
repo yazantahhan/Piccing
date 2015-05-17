@@ -46,4 +46,6 @@ public abstract class Component {
     abstract public void showOutputPinsDialog();
 
     abstract public void showConfigDialog();
+
+    abstract public String getPrintedValue();
 }

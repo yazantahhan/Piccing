@@ -94,9 +94,11 @@ public class TempSensor extends Component {
                     + "while(BusyADC());"
                     + "ADCResult = ReadADC();\r\n"
                     + "ADCResultMv= ADCResult * (5000/1024);"
-                    + "tempC = (ADCResultMv - 0.5) * 100;}");
-            CodeStructure.setup.append("OpenADC(ADC_FOSC_2 & ADC_RIGHT_JUST & ADC_2_TAD,ADC_CH0 & ADC_INT_OFF & ADC_REF_VDD_VSS, ADC_1ANA);");
-            CodeStructure.globalVars.append("unsigned int tempC=0;\r\n");
+                    + "    ADCResultMv = ADCResultMv / 10;"
+                    + "tempC = 1.2113 * ADCResultMv + 1.2903;"
+                    + "}");
+            CodeStructure.setup.append("OpenADC(ADC_FOSC_2 & ADC_RIGHT_JUST & ADC_12_TAD,ADC_CH0 & ADC_INT_OFF & ADC_REF_VDD_VSS, ADC_1ANA);");
+            CodeStructure.globalVars.append("int tempC=0;\r\n");
             sb.append("readTemp();\r\n");
         }
 
@@ -144,5 +146,10 @@ public class TempSensor extends Component {
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
         threshold = valueTF.getText();
 
+    }
+
+    @Override
+    public String getPrintedValue() {
+        return "sprintf(printedStr, \"%d\", tempC);";
     }
 }

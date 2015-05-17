@@ -51,4 +51,9 @@ public class Delay extends Component {
         delayMs = Integer.valueOf(delayTF.getText());
         
     }
+
+    @Override
+    public String getPrintedValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

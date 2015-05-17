@@ -9,6 +9,7 @@ package desktopapplication1;
  * @author aaa
  */
 import engine.Builder;
+import java.util.ArrayList;
 import org.netbeans.api.visual.action.PopupMenuProvider;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.netbeans.api.visual.widget.Widget;
@@ -22,7 +23,8 @@ import jsonModel.LedJson;
 import jsonModel.SensorJson;
 import model.Constants;
 import model.Delay;
-import model.Sensor;
+import model.LdrSensor;
+import model.TempSensor;
 
 public class SceneMainMenu implements PopupMenuProvider, ActionListener {
 
@@ -141,9 +143,9 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
         String defaultPin = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping().get(selectedType);
         CustomWidget cw = null;
         if (selectedType.compareTo("TEMP") == 0) {
-            cw = new CustomWidget(newNode, new model.TempSensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm);
+            cw = new CustomWidget(newNode, new model.TempSensor(hm, null, null, defaultPin, "0", selectedType, TempSensor.EQUALS), hm);
         } else if (selectedType.compareTo("LDR") == 0) {
-            cw = new CustomWidget(newNode, new model.LdrSensor(hm, null, null, defaultPin, "0", selectedType, Sensor.EQUALS), hm);
+            cw = new CustomWidget(newNode, new model.LdrSensor(hm, null, null, defaultPin, "0", selectedType, LdrSensor.EQUALS), hm);
         }
         Constants.listOfCustomWidgets.add(cw);
         Constants.hashOfCustomWidgets.put(newNode, cw);
@@ -158,8 +160,8 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
 //        String hm = "Push Button" + (nodeCount++);
         String hm = "LCD" + LCDCount++;
         Widget newNode = scene.addNode(hm);
-        String defaultPin = Constants.listOfJsonComponents.get("BUTTON").getPins().get(0);
-        CustomWidget cw = new CustomWidget(newNode, new model.Button(hm, null, null, defaultPin, true), hm);
+        ArrayList<String> defaultPin = Constants.listOfJsonComponents.get("LCD").getPins();
+        CustomWidget cw = new CustomWidget(newNode, new model.Lcd(hm, null, null, defaultPin), hm);
         Constants.listOfCustomWidgets.add(cw);
         Constants.hashOfCustomWidgets.put(newNode, cw);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);
@@ -207,8 +209,8 @@ public class SceneMainMenu implements PopupMenuProvider, ActionListener {
 //        String hm = "Push Button" + (nodeCount++);
         String hm = "Motor" + MotorCount++;
         Widget newNode = scene.addNode(hm);
-        //TODO
-        CustomWidget cw = new CustomWidget(newNode, new model.Delay(hm, null, null, 1), hm);
+        ArrayList<String> listOfPins = Constants.listOfJsonComponents.get("MOTOR").getPins();
+        CustomWidget cw = new CustomWidget(newNode, new model.Motor(hm, null, null, listOfPins.get(0), listOfPins.get(1)), hm);
         Constants.listOfCustomWidgets.add(cw);
         Constants.hashOfCustomWidgets.put(newNode, cw);
         scene.getSceneAnimator().animatePreferredLocation(newNode, point2);

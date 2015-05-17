@@ -109,4 +109,9 @@ public class LdrSensor extends Component {
         value = valueTF.getText();
 
     }
+
+    @Override
+    public String getPrintedValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

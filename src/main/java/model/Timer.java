@@ -125,4 +125,9 @@ public class Timer extends Component {
 //        }
 //        return map;
 //    }
+
+    @Override
+    public String getPrintedValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

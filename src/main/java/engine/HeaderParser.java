@@ -13,8 +13,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import jsonModel.ButtonJson;
 import jsonModel.ComponentJson;
+import jsonModel.LCDJson;
 import jsonModel.LedJson;
 import jsonModel.SensorJson;
+import jsonModel.jsonMotor;
 import model.CodeStructure;
 import model.Constants;
 import org.json.simple.JSONArray;
@@ -79,6 +81,34 @@ public class HeaderParser {
                         String type = (String) jsonObj.get("type");
                         ((SensorJson) listOfJsonComps.get("SENSOR")).getTypePinMapping().put(type, (String) jsonObj.get("pin"));
                         ((SensorJson) listOfJsonComps.get("SENSOR")).getAvailabeTypes().add(type);
+                    } else if (name.contains("LCD")) {
+                        listOfPins = (String) jsonObj.get("pinE");
+                        listOfJsonComps.put("LCD", new LCDJson("LCD", new ArrayList<String>(Arrays.asList(listOfPins.split(",")))));
+                        Constants.listOfAvailableComponentsStrings.add(name);
+                        CodeStructure.setup.append((String) jsonObj.get("tris"));
+                        if (((String) jsonObj.get("i/o")).compareTo("out") == 0) {
+                            CodeStructure.setup.append("=0;\r\n");
+                        } else {
+                            CodeStructure.setup.append("=1;\r\n");
+                        }
+                    } else if (name.contains("MOTOR")) {
+                        listOfPins = (String) jsonObj.get("pin");
+                        listOfJsonComps.put("MOTOR", new jsonMotor("LCD", new ArrayList<String>(Arrays.asList(listOfPins.split(",")))));
+                        Constants.listOfAvailableComponentsStrings.add(name);
+                        String tris1 = ((String) jsonObj.get("tris")).split(",")[0];
+                        String tris2 = ((String) jsonObj.get("tris")).split(",")[1];
+                        CodeStructure.setup.append(tris1);
+                        if (((String) jsonObj.get("i/o")).split(",")[0].compareTo("out") == 0) {
+                            CodeStructure.setup.append("=0;\r\n");
+                        } else {
+                            CodeStructure.setup.append("=1;\r\n");
+                        }
+                        CodeStructure.setup.append(tris2);
+                        if (((String) jsonObj.get("i/o")).split(",")[0].compareTo("out") == 0) {
+                            CodeStructure.setup.append("=0;\r\n");
+                        } else {
+                            CodeStructure.setup.append("=1;\r\n");
+                        }
                     }
                 }
             }

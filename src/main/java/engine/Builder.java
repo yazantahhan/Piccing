@@ -78,8 +78,6 @@ public class Builder {
                     String tmpwidgetstr = (String) scene.getEdgeTarget(edges.get(edgeCount--));
                     tmpwidget = scene.findWidget(tmpwidgetstr);
                     currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
-                    System.out.println("--------");
-                    System.out.println(CodeStructure.mainLoop);
                     if (CharMatcher.is('{').countIn(CodeStructure.mainLoop) > 1) {
                         CodeStructure.mainLoop.append("}");
                     }
@@ -106,11 +104,14 @@ public class Builder {
                 }
 
                 if (currentCustomWidget.getName().compareTo("End") != 0) {
-                    CodeStructure.mainLoop.append(currentCustomWidget.getComponent().getComponentsCode());
+//                    if (currentCustomWidget.getName().contains("LCD")) {
+//                        CodeStructure.mainLoop.append(lastBranchedWidget.getComponent().getPrintedValue());
+//                    }
+                        CodeStructure.mainLoop.append(currentCustomWidget.getComponent().getComponentsCode());
+                    }
+
+
                 }
-
-
-            }
 
 //        ArrayList<Widget> multiConnWidgetStack = new ArrayList<Widget>();
 //        ArrayList<Integer> multiConnNumStack = new ArrayList<Integer>();
@@ -145,50 +146,38 @@ public class Builder {
 //            CodeStructure.mainLoop.append(listOfComponents.get(i).getComponent().getComponentsCode());
 //        }
 
-
-            writer.print(CodeStructure.includes);
-            writer.print(CodeStructure.defines);
-            writer.print(CodeStructure.configBits);
-            writer.print(CodeStructure.globalVars);
-            writer.print(CodeStructure.setup);
-            writer.print("}");
-            writer.print(CodeStructure.functions);
-            writer.print(CodeStructure.isr);
-//            writer.print("}");
-            writer.print("}");
-            writer.print(CodeStructure.main);
-            writer.print(CodeStructure.localVars);
-            writer.print(CodeStructure.mainLoop);
-            writer.print("}");
-            writer.print("}");
-            writer.print("return 0;\r\n}");
-
-//        writer.print("if (ADCValue > 512){\r\n");
-//        writer.print(LED.getTurnOnTemplate("B", "RB0"));
-//        writer.print(Button.getButtonEndTemplate());
-//        writer.print("else\r\n");
-//        writer.print(LED.getTurnOffTemplate("B", "RB0"));
-//        writer.print("Lcd_Clear();"
-//                + "Lcd_Set_Cursor(1, 1);"
-//                + "Lcd_Write_String(\"LCD Library for\");"
-//                + "Lcd_Set_Cursor(2, 1);"
-//                + "Lcd_Write_String(\"MPLAB XC8\");");
-//        writer.print(Delay.getStartTemplate(x));
-            writer.close();
-            Runtime runTime = Runtime.getRuntime();
-            try {
-                Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\test\\example.c");
+                writer.print(CodeStructure.includes);
+                writer.print(CodeStructure.defines);
+                writer.print(CodeStructure.configBits);
+                writer.print(CodeStructure.globalVars);
+                writer.print(CodeStructure.setup);
+                writer.print("}");
+                writer.print(CodeStructure.functions);
+                writer.print(CodeStructure.isr);
+                writer.print("}");
+                writer.print(CodeStructure.main);
+                writer.print(CodeStructure.localVars);
+                writer.print(CodeStructure.mainLoop);
+                writer.print("}");
+                writer.print("}");
+                writer.print("return 0;\r\n}");
+                writer.close();
+                Runtime runTime = Runtime.getRuntime();
+                try {
+                    Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\test\\example.c");
 //            try {
 //                p2.waitFor();
 //                runTime.exec("cmd /c start Tools\\XC8compileFile.bat example");
 //            } catch (InterruptedException e) {
 //                System.out.println(e.toString());
 //            }
-            } catch (IOException e) {
-                System.out.println(e.toString());
+                } catch (IOException e) {
+                    System.out.println(e.toString());
+                }
             }
         }
-    }
+
+    
 
     public void endOfTheProgram() {
         JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staement");
