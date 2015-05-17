@@ -7,6 +7,7 @@ import engine.HeaderParser;
 import java.io.File;
 import java.net.URISyntaxException;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -46,11 +47,48 @@ public class DesktopApplication1 extends SingleFrameApplication {
     public static void main(String[] args) throws URISyntaxException {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Select the Header File");
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.addChoosableFileFilter(new OpenFileFilter("json","JSON File") );
         chooser.showOpenDialog(null);
         File file = chooser.getSelectedFile();
 
 
         HeaderParser.parseHeader(file);
         launch(DesktopApplication1.class, args);
+    }
+}
+
+/**
+ * This class defines which file types are displayed (by default) by the JFileChooser and what file
+ * types appear in the drop down menu in the file dialog.
+ * You could add more than one file type to the open file dialog by creating multiple instances of this 
+ * class and then repeatedly calling addFileFilter.
+ * @author LaSpina
+ */
+
+class OpenFileFilter extends FileFilter {
+
+    String description = "";
+    String fileExt = "";
+
+    public OpenFileFilter(String extension) {
+        fileExt = extension;
+    }
+
+    public OpenFileFilter(String extension, String typeDescription) {
+        fileExt = extension;
+        this.description = typeDescription;
+    }
+
+    @Override
+    public boolean accept(File f) {
+        if (f.isDirectory())
+            return true;
+        return (f.getName().toLowerCase().endsWith(fileExt));
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 }

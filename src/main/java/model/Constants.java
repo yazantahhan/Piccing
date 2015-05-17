@@ -22,4 +22,5 @@ public class Constants {
     public static ArrayList<String> listOfAvailableComponentsStrings = new ArrayList<String>();
     public static CustomWidget startWidget;
     public static CustomWidget endWidget;
+    public static String microcontroller = "";
 }

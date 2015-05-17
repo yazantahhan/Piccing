@@ -5,9 +5,7 @@
  */
 package engine;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import desktopapplication1.CustomWidget;
-import java.awt.Dialog;
 import java.util.Collection;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.openide.util.Exceptions;
@@ -15,14 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.CodeStructure;
-import model.Component;
 import model.Constants;
 import org.netbeans.api.visual.widget.Widget;
-import org.netbeans.api.visual.widget.general.IconNodeWidget;
 
 /**
  *
@@ -148,7 +143,7 @@ public class Builder {
             writer.print(CodeStructure.setup);
             writer.print("}");
             writer.print(CodeStructure.isr);
-            writer.print("}");
+//            writer.print("}");
             writer.print("}");
             writer.print(CodeStructure.main);
             writer.print(CodeStructure.localVars);
