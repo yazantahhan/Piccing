@@ -10,19 +10,14 @@ package desktopapplication1;
 import java.util.ArrayList;
 import model.Constants;
 import org.netbeans.api.visual.action.ActionFactory;
-import org.netbeans.api.visual.action.TwoStateHoverProvider;
 import org.netbeans.api.visual.action.WidgetAction;
 import org.netbeans.api.visual.anchor.AnchorFactory;
 import org.netbeans.api.visual.anchor.AnchorShape;
 import org.netbeans.api.visual.anchor.PointShape;
 import org.netbeans.api.visual.graph.GraphScene;
-import org.netbeans.api.visual.layout.LayoutFactory;
-import org.netbeans.api.visual.model.ObjectState;
 import org.netbeans.api.visual.router.RouterFactory;
 import org.netbeans.api.visual.widget.ConnectionWidget;
-import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.LayerWidget;
-import org.netbeans.api.visual.widget.Scene;
 import org.netbeans.api.visual.widget.Widget;
 import org.netbeans.api.visual.widget.general.IconNodeWidget;
 import org.openide.util.ImageUtilities;
@@ -73,13 +68,13 @@ public class GraphSceneImpl extends GraphScene<String, String> {
             widget.setImage(ImageUtilities.loadImage("icons/motor32.png"));
         } else if (arg.contains("ADC")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
-        } else if (arg.contains("ADC")) {  // if widget name start with anything else then use blue widget
-            widget.setImage(ImageUtilities.loadImage("icons/ADC32.png"));
+        } else if (arg.contains("LCD")) {  // if widget name start with anything else then use blue widget
+            widget.setImage(ImageUtilities.loadImage("icons/LCD-32x32.png"));
         } else if (arg.contains("Start")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/start45.png"));
         } else if (arg.contains("End")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/end45.png"));
-        } else if (arg.contains("KeyBad")) {  // if widget name start with anything else then use blue widget
+        } else if (arg.contains("Keypad")) {  // if widget name start with anything else then use blue widget
             widget.setImage(ImageUtilities.loadImage("icons/KeyBad32.png"));
         }
 
@@ -154,6 +149,7 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         if(cw!=null){
         cw.setOutFlag(true);
         }
+        
         }
 
     
