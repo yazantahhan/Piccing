@@ -482,8 +482,12 @@ public class DesktopApplication1View extends FrameView {
             HashMap<String, String> listofPins = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping();
             ArrayList<String> listOfSensors = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getAvailabeTypes();
             for (int i = 0; i < listofPins.size(); i++) {
-                String currentType = listOfSensors.get(i);
-                String x = currentType + "  -----> " + listofPins.get(currentType);
+                String currentType = listOfSensors.get(i); 
+                String y = (listofPins.get(currentType));
+                String pins;
+               pins=(String) y.subSequence(10,13); 
+               
+                String x = currentType + "  -----> " + pins;
                 ready.add(x);
 
             }
