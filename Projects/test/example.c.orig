@@ -9,15 +9,17 @@
 #pragma config WRT = OFF
 #pragma config CP = OFF
 void setup(){
+TRISBbits.RB0=0;
+TRISBbits.RB1=0;
+TRISBbits.RB2=0;
+TRISBbits.RB3=0;
+TRISBbits.RB4=1;
+TRISAbits.RA0=1;
+TRISAbits.RA1=1;
 }void interrupt isr(void){
-}}int main(){
+}int main(){
 setup();
-TRISA = 0xFF;
- TRISB = 0x0;
-TRISD = 0xFF;
 while(1){
-if(!RB4){
-if(!RB4){
-if(!RB4){
+if(!RPORTBbits.RB4){
 }}return 0;
 }

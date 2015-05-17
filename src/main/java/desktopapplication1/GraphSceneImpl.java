@@ -151,8 +151,9 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         ((ConnectionWidget) findWidget(edge)).setSourceAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
         CustomWidget cw = Constants.hashOfCustomWidgets.get(w);
+        if(cw!=null){
         cw.setOutFlag(true);
-        
+        }
         }
 
     
@@ -165,7 +166,9 @@ public class GraphSceneImpl extends GraphScene<String, String> {
         ((ConnectionWidget) findWidget(edge)).setTargetAnchor(AnchorFactory.createRectangularAnchor(w));
         ((ConnectionWidget) findWidget(edge)).setRouter(RouterFactory.createOrthogonalSearchRouter(mainLayer));
         CustomWidget cw = Constants.hashOfCustomWidgets.get(w);
+        if(cw!=null){
         cw.setInFlag(true);
+        }
 //        ((ConnectionWidget) findWidget(edge)).calculateRouting();
 //        List<Point> j = ((ConnectionWidget) findWidget(edge)).getControlPoints();
 //        j.get(j.size() - 1).y = j.get(j.size() - 1).y - 20;
