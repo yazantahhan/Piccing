@@ -22,17 +22,20 @@ import javax.swing.JTextField;
  */
 public class LdrSensor extends Component {
 
-    public static final String GREATER = "greater";
-    public static final String LESSTHAN = "less";
+    public static final String GREATER = "Greater than";
+    public static final String LESSTHAN = "Less than";
     public static final String EQUALS = "equals";
-    private String value;
+    private String threshold;
     private String type;
     private String comparetorSelected;
     private String pin = "";
+    private boolean isFirstTime = true;
+    private ArrayList<String> listOfComp = new ArrayList<String>();
+    private int compCount = -1;
 
     public LdrSensor(String name, Component input, Component output, String pin, String value, String type, String comparetorSelected) {
         super(name, input, output);
-        this.value = value;
+        this.threshold = value;
         this.type = type;
         this.comparetorSelected = comparetorSelected;
         this.pin = pin;
@@ -63,19 +66,33 @@ public class LdrSensor extends Component {
     }
 
     public String getValue() {
-        return value;
+        return threshold;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.threshold = value;
     }
 
     //TODO code for sensors
     @Override
     public String getComponentsCode() {
-        CodeStructure.functions.append("long map(long x, long in_min, long in_max, long out_min, long out_max)"
-                + "{return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;}\r\n");
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+            if (isFirstTime) {
+                isFirstTime = false;
+                CodeStructure.globalVarsA.append("int light=0;\r\n");
+                sb.append("light = analogRead("+ pin + ")/4;\r\nlight = map(light, 0, 260, 0, 9);" + "delay(100);\r\n");
+            }
+            if (listOfComp.get(compCount).compareTo(LESSTHAN) == 0) {
+                sb.append("if (light <").append(threshold).append(" ){");
+            } else if (listOfComp.get(compCount).compareTo(EQUALS) == 0) {
+                sb.append("if (light ==").append(threshold).append(" ){");
+            } else {
+                sb.append("if (light >").append(threshold).append(" ){");
+            }
+        }
+        compCount--;
+        return sb.toString();
     }
 
     @Override
@@ -94,19 +111,20 @@ public class LdrSensor extends Component {
         JOptionPane.showMessageDialog(null, inputs, "Select output pin", JOptionPane.PLAIN_MESSAGE);
         String comparator = (String) combo.getSelectedItem();
         GraphSceneImpl.resultedStr = comparator;
-
+        listOfComp.add(comparator);
+         compCount++;
     }
 
     @Override
     public void showConfigDialog() {
         JTextField valueTF = new JTextField();
-        valueTF.setText(value);
+        valueTF.setText(threshold);
         final JComponent[] inputs = new JComponent[]{
-            new JLabel("Threshold (From 1-10) "),
+            new JLabel("Threshold (From 0-9) "),
             valueTF
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
-        value = valueTF.getText();
+        threshold = valueTF.getText();
 
     }
 

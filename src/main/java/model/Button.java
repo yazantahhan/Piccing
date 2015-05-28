@@ -35,9 +35,9 @@ public class Button extends Component {
     private String getButtonStartTemplate(String pin, boolean isActiveLow) {
         String x;
         if (isActiveLow) {
-            x = "if(!R" + pin + "){\r\n";
+            x = "if(!" + pin + "){\r\n";
         } else {
-            x = "if(R" + pin + "){\r\n";
+            x = "if(" + pin + "){\r\n";
         }
         return x;
     }

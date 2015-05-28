@@ -22,7 +22,7 @@ public class LED extends Component {
         this.pin = pin;
         this.color = color;
         this.willTurnOn = willTurnOn;
-        
+
     }
 
     public String getColor() {
@@ -60,12 +60,22 @@ public class LED extends Component {
     }
 
     private String getTurnOnTemplate(String pin) {
-        String x = pin + "=1;\r\n";
+        String x;
+        if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+            x = "digitalWrite(" + pin + ", HIGH);";
+        } else {
+            x = pin + "=1;\r\n";
+        }
         return x;
     }
 
     private String getTurnOffTemplate(String pin) {
-        String x = pin + "=0;\r\n";
+        String x;
+        if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+            x = "digitalWrite(" + pin + ", LOW);";
+        } else {
+            x = pin + "=0;\r\n";
+        }
         return x;
     }
 
@@ -79,25 +89,34 @@ public class LED extends Component {
 
     @Override
     public void showConfigDialog() {
-        ArrayList<String> listOfColors = ((LedJson)(Constants.listOfJsonComponents.get("LED"))).getAvailabeColors();
-        HashMap<String, String> listofPins=((LedJson)(Constants.listOfJsonComponents.get("LED"))).getColorPinMapping();
+        ArrayList<String> listOfColors = ((LedJson) (Constants.listOfJsonComponents.get("LED"))).getAvailabeColors();
+        HashMap<String, String> listofPins = ((LedJson) (Constants.listOfJsonComponents.get("LED"))).getColorPinMapping();
         ArrayList<String> ready = new ArrayList<String>();
-        for(int i=0;i<listofPins.size();i++){
+        for (int i = 0; i < listofPins.size(); i++) {
             String currentColor = listOfColors.get(i);
-            String x =  currentColor+ "  -----> "+ listofPins.get(currentColor);
+            String x = currentColor + "  -----> " + listofPins.get(currentColor);
             ready.add(x);
-            
+
         }
-           
+
         JComboBox<String> combo = new JComboBox(ready.toArray());
-        
+        String combo2Str[] = {"Turn on", "Turn off"};
+        JComboBox<String> combo2 = new JComboBox(combo2Str);
+
         final JComponent[] inputs = new JComponent[]{
             new JLabel("Color"),
-            combo            
+            combo,
+            new JLabel("When signal comes"),
+            combo2
         };
         JOptionPane.showMessageDialog(null, inputs, "Configration", JOptionPane.PLAIN_MESSAGE);
         color = ((String) combo.getSelectedItem()).split(" ")[0];
-        pin=((LedJson)Constants.listOfJsonComponents.get("LED")).getColorPinMapping().get(color);
+        pin = ((LedJson) Constants.listOfJsonComponents.get("LED")).getColorPinMapping().get(color);
+        if (((String) combo2.getSelectedItem()).compareTo(combo2Str[0]) == 0) {
+            willTurnOn = true;
+        } else {
+            willTurnOn = false;
+        }
     }
 
     @Override

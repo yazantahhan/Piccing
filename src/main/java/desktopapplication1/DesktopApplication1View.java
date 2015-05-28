@@ -482,12 +482,16 @@ public class DesktopApplication1View extends FrameView {
             HashMap<String, String> listofPins = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getTypePinMapping();
             ArrayList<String> listOfSensors = ((SensorJson) (Constants.listOfJsonComponents.get("SENSOR"))).getAvailabeTypes();
             for (int i = 0; i < listofPins.size(); i++) {
-                String currentType = listOfSensors.get(i); 
-                String y = (listofPins.get(currentType));
+                String currentType = listOfSensors.get(i);
                 String pins;
-               pins=(String) y.subSequence(10,13); 
-               
-                String x = currentType + "  -----> " + pins;
+                String x;
+                String y = listofPins.get(currentType);
+                if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+                    x = currentType + "  -----> " + y;
+                } else {
+                    pins = (String) y.subSequence(10, 13);
+                    x = currentType + "  -----> " + pins;
+                }
                 ready.add(x);
 
             }
@@ -509,13 +513,15 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_delayBtnActionPerformed
 
     private void motorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motorBtnActionPerformed
-        if (getAvailableComponent("MOTOR") != null)
-        sced.addMotor();
+        if (getAvailableComponent("MOTOR") != null) {
+            sced.addMotor();
+        }
     }//GEN-LAST:event_motorBtnActionPerformed
 
     private void adcbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adcbuttonActionPerformed
-        if (getAvailableComponent("ADC") != null)
-        sced.addAdc();
+        if (getAvailableComponent("ADC") != null) {
+            sced.addAdc();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_adcbuttonActionPerformed
 
@@ -556,8 +562,9 @@ public class DesktopApplication1View extends FrameView {
     }//GEN-LAST:event_KeyBadbtnMouseEntered
 
     private void KeyBadbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeyBadbtnActionPerformed
-        if (getAvailableComponent("KEYPAD") != null)
-        sced.addKeypad();        // TODO add your handling code here:
+        if (getAvailableComponent("KEYPAD") != null) {
+            sced.addKeypad();        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_KeyBadbtnActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton KeyBadbtn;

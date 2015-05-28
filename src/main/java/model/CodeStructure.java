@@ -13,6 +13,15 @@ public class CodeStructure {
     public static StringBuilder setup = new StringBuilder("void setup(){\r\n");
     public static StringBuilder configBits = new StringBuilder(getConfigBits());
     public static StringBuilder isr = new StringBuilder("void interrupt isr(void){\r\n");
+    
+    public static StringBuilder definesA = new StringBuilder();
+    public static StringBuilder includesA = new StringBuilder();
+    public static StringBuilder globalVarsA = new StringBuilder();
+    public static StringBuilder localVarsA = new StringBuilder("");
+    public static StringBuilder mainLoopA = new StringBuilder("void loop(){\r\n");
+    public static StringBuilder functionsA = new StringBuilder();
+    public static StringBuilder setupA= new StringBuilder("void setup(){\r\n");
+    public static StringBuilder isrA = new StringBuilder("void interrupt isr(void){\r\n");
 
     private static String getConfigBits() {
         return "#define _XTAL_FREQ 4000000\r\n"

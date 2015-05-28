@@ -7,6 +7,8 @@ package engine;
 
 import com.google.common.base.CharMatcher;
 import desktopapplication1.CustomWidget;
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.util.Collection;
 import org.netbeans.api.visual.graph.GraphScene;
 import org.openide.util.Exceptions;
@@ -15,7 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerListModel;
 import model.CodeStructure;
 import model.Constants;
 import model.TempSensor;
@@ -27,7 +33,7 @@ import org.netbeans.api.visual.widget.Widget;
  */
 public class Builder {
 
-    static String PATH = "Projects\\test\\";
+    static String PATH = "Projects\\example\\";
     static int x = 100;
     static boolean errFlag = false;
 
@@ -49,7 +55,12 @@ public class Builder {
 
         } else {
             PrintWriter writer = null;
-            File file = new File(PATH, "example.c");
+            File file = null;
+            if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+                file = new File(PATH, "example.ino");
+            } else {
+                file = new File(PATH, "example.c");
+            }
             if (!file.exists()) {
                 new File(PATH).mkdirs();
                 try {
@@ -71,39 +82,108 @@ public class Builder {
             int edgeCount = -1;
             CustomWidget lastBranchedWidget = null;
 
-            while (true) {
-                if (currentCustomWidget.getName().compareTo("End") == 0 && edgeCount == -1) {
-                    break;
-                } else if (currentCustomWidget.getName().compareTo("End") == 0) {
-                    String tmpwidgetstr = (String) scene.getEdgeTarget(edges.get(edgeCount--));
-                    tmpwidget = scene.findWidget(tmpwidgetstr);
-                    currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
-                    if (CharMatcher.is('{').countIn(CodeStructure.mainLoop) > 1) {
-                        CodeStructure.mainLoop.append("}");
-                    }
-                    if (lastBranchedWidget.getName().contains("TEMP Sensor")) {
-                        CodeStructure.mainLoop.append(lastBranchedWidget.getComponent().getComponentsCode());
-                    }
-                } else {
-                    tmpEdges = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
-                    if (tmpEdges.size() > 1) {
-                        edges.addAll(tmpEdges);
-                        edgeCount = tmpEdges.size() - 1;
-                        String z = (String) scene.getEdgeTarget(edges.get(edgeCount--));
-                        tmpwidget = scene.findWidget(z);
-                        lastBranchedWidget = currentCustomWidget;
+            if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+                while (true) {
+                    if (currentCustomWidget.getName().compareTo("End") == 0 && edgeCount == -1) {
+                        if (CharMatcher.is('{').countIn(CodeStructure.mainLoopA) > 1) {
+                            CodeStructure.mainLoopA.append("}");
+                        }
+                        break;
+                    } else if (currentCustomWidget.getName().compareTo("End") == 0) {
+                        String tmpwidgetstr = (String) scene.getEdgeTarget(edges.get(edgeCount--));
+                        tmpwidget = scene.findWidget(tmpwidgetstr);
                         currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        if (CharMatcher.is('{').countIn(CodeStructure.mainLoopA) > 1) {
+                            CodeStructure.mainLoopA.append("}");
+                        }
+                        if (lastBranchedWidget.getName().contains("Sensor")) {
+                            CodeStructure.mainLoopA.append(lastBranchedWidget.getComponent().getComponentsCode());
+                        }
                     } else {
+                        tmpEdges = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
+                        if (tmpEdges.size() > 1) {
+                            edges.addAll(tmpEdges);
+                            edgeCount = tmpEdges.size() - 1;
+                            String z = (String) scene.getEdgeTarget(edges.get(edgeCount--));
+                            tmpwidget = scene.findWidget(z);
+                            lastBranchedWidget = currentCustomWidget;
+                            currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        } else {
 
-                        Object[] y = tmpEdges.toArray();
-                        String z = (String) scene.getEdgeTarget(y[0]);
-                        tmpwidget = scene.findWidget(z);
-//                    tmpwidget = (Widget) scene.getEdgeTarget(scene.findNodeEdges(currentCustomWidget.getName(), true, false).toArray()[0]);
-                        currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                            Object[] y = tmpEdges.toArray();
+                            String z = (String) scene.getEdgeTarget(y[0]);
+                            tmpwidget = scene.findWidget(z);
+                            currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        }
                     }
+
+                    if (currentCustomWidget.getName().compareTo("End") != 0) {
+                        CodeStructure.mainLoopA.append(currentCustomWidget.getComponent().getComponentsCode());
+                    }
+
+
                 }
 
-                if (currentCustomWidget.getName().compareTo("End") != 0) {
+
+                writer.print(CodeStructure.includesA);
+                writer.print(CodeStructure.definesA);
+                writer.print(CodeStructure.globalVarsA);
+                writer.print(CodeStructure.setupA);
+                writer.print("}");
+                writer.print(CodeStructure.functionsA);
+                writer.print(CodeStructure.localVarsA);
+                writer.print(CodeStructure.mainLoopA);
+                writer.print("}");
+                writer.close();
+                Runtime runTime = Runtime.getRuntime();
+//                try {
+//                    Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\test\\example.c");
+//                    try {
+//                        p2.waitFor();
+//                        runTime.exec("cmd start Tools\\XC8compileFile.bat example");
+//                    } catch (InterruptedException e) {
+//                        System.out.println(e.toString());
+//                    }
+//                } catch (IOException e) {
+//                    System.out.println(e.toString());
+//                }
+            } else {
+                while (true) {
+                    if (currentCustomWidget.getName().compareTo("End") == 0 && edgeCount == -1) {
+                        if (CharMatcher.is('{').countIn(CodeStructure.mainLoopA) > 1) {
+                            CodeStructure.mainLoopA.append("}");
+                        }
+                        break;
+                    } else if (currentCustomWidget.getName().compareTo("End") == 0) {
+                        String tmpwidgetstr = (String) scene.getEdgeTarget(edges.get(edgeCount--));
+                        tmpwidget = scene.findWidget(tmpwidgetstr);
+                        currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        if (CharMatcher.is('{').countIn(CodeStructure.mainLoop) > 1) {
+                            CodeStructure.mainLoop.append("}");
+                        }
+                        if (lastBranchedWidget.getName().contains("TEMP Sensor")) {
+                            CodeStructure.mainLoop.append(lastBranchedWidget.getComponent().getComponentsCode());
+                        }
+                    } else {
+                        tmpEdges = scene.findNodeEdges(currentCustomWidget.getName(), true, false);
+                        if (tmpEdges.size() > 1) {
+                            edges.addAll(tmpEdges);
+                            edgeCount = tmpEdges.size() - 1;
+                            String z = (String) scene.getEdgeTarget(edges.get(edgeCount--));
+                            tmpwidget = scene.findWidget(z);
+                            lastBranchedWidget = currentCustomWidget;
+                            currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        } else {
+
+                            Object[] y = tmpEdges.toArray();
+                            String z = (String) scene.getEdgeTarget(y[0]);
+                            tmpwidget = scene.findWidget(z);
+//                    tmpwidget = (Widget) scene.getEdgeTarget(scene.findNodeEdges(currentCustomWidget.getName(), true, false).toArray()[0]);
+                            currentCustomWidget = Constants.hashOfCustomWidgets.get(tmpwidget);
+                        }
+                    }
+
+                    if (currentCustomWidget.getName().compareTo("End") != 0) {
 //                    if (currentCustomWidget.getName().contains("LCD")) {
 //                        CodeStructure.mainLoop.append(lastBranchedWidget.getComponent().getPrintedValue());
 //                    }
@@ -163,21 +243,23 @@ public class Builder {
                 writer.print("return 0;\r\n}");
                 writer.close();
                 Runtime runTime = Runtime.getRuntime();
-                try {
-                    Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\test\\example.c");
-//            try {
-//                p2.waitFor();
-//                runTime.exec("cmd /c start Tools\\XC8compileFile.bat example");
-//            } catch (InterruptedException e) {
-//                System.out.println(e.toString());
-//            }
-                } catch (IOException e) {
-                    System.out.println(e.toString());
+                if (Constants.microcontroller.compareTo("ARDUINO") == 0) {
+                } else {
+                    try {
+                        Process p2 = runTime.exec("Tools\\AStyle.exe Projects\\example\\example.c");
+                        try {
+                            p2.waitFor();
+                            runTime.exec("cmd /c start Tools\\XC8compileFile.bat example");
+                        } catch (InterruptedException e) {
+                            System.out.println(e.toString());
+                        }
+                    } catch (IOException e) {
+                        System.out.println(e.toString());
+                    }
                 }
             }
         }
-
-    
+    }
 
     public void endOfTheProgram() {
         JOptionPane.showMessageDialog(null, "Please switch to user mode  by chamging the switch staement");
