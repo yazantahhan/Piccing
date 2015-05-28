@@ -3,10 +3,15 @@
  */
 package desktopapplication1;
 
+import com.sun.awt.AWTUtilities;
 import engine.HeaderParser;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.net.URISyntaxException;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JWindow;
 import javax.swing.filechooser.FileFilter;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
@@ -48,11 +53,9 @@ public class DesktopApplication1 extends SingleFrameApplication {
         JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Select the Header File");
         chooser.setAcceptAllFileFilterUsed(false);
-        chooser.addChoosableFileFilter(new OpenFileFilter("json","JSON File") );
+        chooser.addChoosableFileFilter(new OpenFileFilter("json", "JSON File"));
         chooser.showOpenDialog(null);
         File file = chooser.getSelectedFile();
-
-
         HeaderParser.parseHeader(file);
         launch(DesktopApplication1.class, args);
     }
@@ -65,7 +68,6 @@ public class DesktopApplication1 extends SingleFrameApplication {
  * class and then repeatedly calling addFileFilter.
  * @author LaSpina
  */
-
 class OpenFileFilter extends FileFilter {
 
     String description = "";
@@ -82,8 +84,9 @@ class OpenFileFilter extends FileFilter {
 
     @Override
     public boolean accept(File f) {
-        if (f.isDirectory())
+        if (f.isDirectory()) {
             return true;
+        }
         return (f.getName().toLowerCase().endsWith(fileExt));
     }
 
